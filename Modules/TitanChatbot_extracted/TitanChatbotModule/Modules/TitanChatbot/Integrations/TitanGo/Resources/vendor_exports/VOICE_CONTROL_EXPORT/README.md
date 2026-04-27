@@ -1,0 +1,1 @@
+# Voice Control Code Extracts\n\nThis bundle contains code extracted from the provided repos that is useful for building a WorkSuite voice control module (STT, TTS, mic recording, IVR calling patterns).\n\nEach top-level folder corresponds to a source repo, and preserves relative paths for easy cherry-picking.\n

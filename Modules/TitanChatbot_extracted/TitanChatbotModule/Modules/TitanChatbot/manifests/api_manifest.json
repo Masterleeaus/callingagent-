@@ -1,0 +1,7 @@
+{
+  "module": "TitanChatbot",
+  "schema": "titan.manifest.v1",
+  "name": "api_manifest",
+  "enabled": true,
+  "items": []
+}

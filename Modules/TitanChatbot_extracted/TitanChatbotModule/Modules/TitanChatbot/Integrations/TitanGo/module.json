@@ -1,0 +1,11 @@
+{
+  "name": "TitanGo",
+  "alias": "titango",
+  "description": "Voice control for Titan Pro (paid upgrade).",
+  "version": "1.0.0",
+  "priority": 0,
+  "providers": [
+    "Modules\\\\TitanGo\\\\Providers\\\\TitanGoServiceProvider",
+    "Modules\\\\TitanGo\\\\Providers\\\\RouteServiceProvider"
+  ]
+}

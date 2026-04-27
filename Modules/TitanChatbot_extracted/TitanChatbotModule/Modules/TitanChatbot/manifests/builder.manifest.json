@@ -1,0 +1,51 @@
+{
+  "builder_ui_preserved": true,
+  "primary_views_path": "Resources/views",
+  "reference_views_path": "Resources/views_combined_reference",
+  "assets_path": "Resources/assets",
+  "screens": [
+    "Configure",
+    "Customize",
+    "Train",
+    "Embed",
+    "Channel",
+    "Analytics",
+    "Conversations"
+  ],
+  "included_sources": [
+    "TitanChatbot_Module_Pass01.zip",
+    "TitanBot_merged_best_base_pass12.zip",
+    "ChatbotCombined_v7.zip",
+    "ChatbotVoice_TitanGo_CoreRouted_v7.zip",
+    "TitanGo_full_module_v2.zip",
+    "ChatbotWhatsapp.zip",
+    "ChatbotTelegram (1).zip",
+    "ChatbotMessenger.zip",
+    "ChatbotAgent.zip",
+    "ElevenLabsVoiceChat.zip",
+    "ChatbotVoice.zip"
+  ],
+  "merge_counts": {
+    "views_base": 79,
+    "assets_base": 12,
+    "views_combined": 92,
+    "assets_combined": 27,
+    "chatbot_system": 513,
+    "chatbot_app": 0,
+    "chatbot_config": 4,
+    "chatbot_routes": 0,
+    "chatbot_migrations": 43,
+    "connectors_system": 22,
+    "connectors_config": 1,
+    "connectors_db": 3,
+    "connectors_views": 1,
+    "channel_WhatsApp": 11,
+    "channel_Telegram": 12,
+    "channel_Messenger": 13,
+    "extra_Agent": 18,
+    "extra_ElevenLabsVoiceChat": 23,
+    "extra_ChatbotVoice": 57,
+    "extra_ChatbotVoiceTitanGo": 61,
+    "extra_TitanGo": 76
+  }
+}
