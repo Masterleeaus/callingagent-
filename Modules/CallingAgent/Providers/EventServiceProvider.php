@@ -1,4 +1,21 @@
 <?php
+
 namespace Modules\CallingAgent\Providers;
-use Illuminate\Support\ServiceProvider;
-class EventServiceProvider extends ServiceProvider { public function register(): void {} public function boot(): void {} }
+
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Modules\CallingAgent\Events\CallStatusChanged;
+use Modules\CallingAgent\Listeners\RecordCallUsage;
+
+class EventServiceProvider extends ServiceProvider
+{
+    protected $listen = [
+        CallStatusChanged::class => [
+            RecordCallUsage::class,
+        ],
+    ];
+
+    public function boot(): void
+    {
+        parent::boot();
+    }
+}
