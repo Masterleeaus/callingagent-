@@ -15,5 +15,12 @@
     "/api/chatbots/{id}/voice",
     "/api/chatbots/{id}/history",
     "/api/chatbots/{id}/train"
+  ],
+  "webhook_routes": [
+    "POST webhooks/titan-chatbot/whatsapp/{channelId}",
+    "POST webhooks/titan-chatbot/telegram/{channelId}",
+    "GET  webhooks/titan-chatbot/telegram/{channelId}/verify",
+    "GET  webhooks/titan-chatbot/messenger/{channelId}",
+    "POST webhooks/titan-chatbot/messenger/{channelId}"
   ]
 }

@@ -12,6 +12,14 @@ class EmbeddingMeter
         Cache::increment($key, $tokens);
     }
 
+    /**
+     * Alias accepted by automation listeners: record(int $tokens, array $context).
+     */
+    public function record(int $tokens, array $context = []): void
+    {
+        $this->recordTokens((int) ($context['tenant_id'] ?? 0), $tokens);
+    }
+
     public function getTokenCount(int $tenantId, ?string $date = null): int
     {
         return (int) Cache::get($this->buildKey($tenantId, $date), 0);

@@ -127,19 +127,17 @@ class ChatbotVoiceController extends Controller
      * voice chatbot frame view
      */
     public function frame(\Illuminate\Http\Request $request, string $uuid): View|Response
-{
-    $chatbot = ExtVoiceChatbot::whereUuid($uuid)->firstOrFail();
-    if ($chatbot) {
-        $mode = $request->query('mode', 'legacy');
-        if ($mode === 'go') {
-            return view('chatbot-voice::frame-go', compact('chatbot'));
+    {
+        $chatbot = ExtVoiceChatbot::whereUuid($uuid)->firstOrFail();
+        if ($chatbot) {
+            $mode = $request->query('mode', 'legacy');
+            if ($mode === 'go') {
+                return view('chatbot-voice::frame-go', compact('chatbot'));
+            }
+            return view('chatbot-voice::frame', compact('chatbot'));
+        } else {
+            return response('Incorrect UUID', 404);
         }
-        return view('chatbot-voice::frame', compact('chatbot'));
-    } else {
-        return response('Incorrect UUID', 404);
-    }
-}
-
     }
 
     public function checkVoiceBalance(Request $request): ?JsonResponse

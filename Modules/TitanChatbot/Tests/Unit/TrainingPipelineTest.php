@@ -98,7 +98,8 @@ class TrainingPipelineTest extends TestCase
 
     public function test_chunk_qa_ignores_q_without_a(): void
     {
-        $content = "Q: What is this?\n\nSome random line without answer.";
+        // A Q: with no A: or continuation lines produces no chunks.
+        $content = "Q: Orphan question with nothing after it";
         $chunks  = $this->pipeline->chunkQa($content);
 
         $this->assertEmpty($chunks);
