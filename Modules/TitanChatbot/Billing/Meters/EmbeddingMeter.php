@@ -4,15 +4,15 @@ namespace Modules\TitanChatbot\Billing\Meters;
 
 use Illuminate\Support\Facades\Cache;
 
-class VoiceSecondsMeter
+class EmbeddingMeter
 {
-    public function recordSeconds(int $tenantId, int $seconds): void
+    public function recordTokens(int $tenantId, int $tokens): void
     {
         $key = $this->buildKey($tenantId);
-        Cache::increment($key, $seconds);
+        Cache::increment($key, $tokens);
     }
 
-    public function getSeconds(int $tenantId, ?string $date = null): int
+    public function getTokenCount(int $tenantId, ?string $date = null): int
     {
         return (int) Cache::get($this->buildKey($tenantId, $date), 0);
     }
@@ -26,6 +26,6 @@ class VoiceSecondsMeter
     {
         $date = $date ?? now()->toDateString();
 
-        return "billing_meter:voice_seconds:{$tenantId}:{$date}";
+        return "billing_meter:embeddings:{$tenantId}:{$date}";
     }
 }
