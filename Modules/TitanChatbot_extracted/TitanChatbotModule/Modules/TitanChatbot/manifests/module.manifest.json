@@ -1,0 +1,28 @@
+{
+  "module": "TitanChatbot",
+  "manifest": "module",
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "TitanChatbot",
+  "merged_pass": "03",
+  "builder_ui": "preserved",
+  "capabilities": [
+    "external_chatbot_builder",
+    "rag_training",
+    "frontend_widget",
+    "whatsapp",
+    "telegram",
+    "messenger",
+    "voice",
+    "agent_handoff",
+    "connectors",
+    "analytics"
+  ],
+  "paths": {
+    "builder_views": "Resources/views",
+    "builder_assets": "Resources/assets",
+    "legacy_core": "Support/Legacy/Chatbot/System",
+    "channels": "Channels",
+    "voice_integrations": "Integrations"
+  }
+}

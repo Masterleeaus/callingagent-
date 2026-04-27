@@ -1,0 +1,7 @@
+{
+  "module": "TitanChatbot",
+  "schema": "titan.manifest.v1",
+  "name": "health.manifest",
+  "enabled": true,
+  "items": []
+}

@@ -1,0 +1,13 @@
+{
+  "module": "TitanChatbot",
+  "web": [
+    "/titan-chatbot",
+    "/titan-chatbot/channels",
+    "/titan-chatbot/voice",
+    "/titan-chatbot/agent"
+  ],
+  "api": [
+    "/api/titan-chatbot/health"
+  ],
+  "enabled": true
+}

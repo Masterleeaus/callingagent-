@@ -1,0 +1,28 @@
+{
+  "module": "TitanChatbot",
+  "strategy": "preserve-then-promote",
+  "source_archives": [
+    "ChatBot-main.zip",
+    "ChatbotAgent.zip",
+    "ChatbotCombined_v7.zip",
+    "ChatbotMessenger.zip",
+    "ChatbotTelegram.zip",
+    "ChatbotVoice_TitanGo_CoreRouted_v7.zip",
+    "ChatbotWhatsapp.zip",
+    "ElevenLabsVoiceChat.zip",
+    "External-Chatbot-upgrade-pass01.zip",
+    "TitanBot.zip",
+    "TitanBot_merged_best_base_pass12.zip",
+    "TitanGo_full_module_v2.zip",
+    "chatbot-master.zip",
+    "laravel-facebook-chatbot-master.zip"
+  ],
+  "known_followups": [
+    "namespace promotion",
+    "host autoload mapping",
+    "migration dedupe",
+    "voice table typo normalization",
+    "PWA manifest/service-worker implementation"
+  ],
+  "enabled": true
+}
