@@ -1,0 +1,15 @@
+/mnt/data/pass13_build/Modules/CallingAgent/Resources/assets/css/.gitkeep
+/mnt/data/pass13_build/Modules/CallingAgent/Resources/assets/css/calling-agent.css
+/mnt/data/pass13_build/Modules/CallingAgent/Resources/assets/css/builder.css
+/mnt/data/pass13_build/Modules/CallingAgent/Resources/assets/js/.gitkeep
+/mnt/data/pass13_build/Modules/CallingAgent/Resources/assets/js/calling-agent.js
+/mnt/data/pass13_build/Modules/CallingAgent/Resources/assets/js/builder.js
+/mnt/data/pass13_build/Modules/CallingAgent/Resources/lang/en/.gitkeep
+/mnt/data/pass13_build/Modules/CallingAgent/Resources/lang/en/messages.php
+/mnt/data/pass13_build/Modules/CallingAgent/Resources/views/.gitkeep
+/mnt/data/pass13_build/Modules/CallingAgent/Resources/views/dashboard/.gitkeep
+/mnt/data/pass13_build/Modules/CallingAgent/Resources/views/dashboard/index.blade.php
+/mnt/data/pass13_build/Modules/CallingAgent/Resources/views/twiml/.gitkeep
+/mnt/data/pass13_build/Modules/CallingAgent/Resources/views/twiml/insufficient-credits.blade.php
+/mnt/data/pass13_build/Modules/CallingAgent/Resources/views/builder/index.blade.php
+/mnt/data/pass13_build/Modules/CallingAgent/Resources/views/layouts/builder.blade.php

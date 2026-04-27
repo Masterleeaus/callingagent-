@@ -1,0 +1,17 @@
+{
+  "version": "1.0.12",
+  "pass": 12,
+  "name": "CallingAgent",
+  "builder_ui_preserved": true,
+  "added": [
+    "caller_memory",
+    "outcome_intelligence",
+    "transfer_routing_trees",
+    "missed_call_recovery",
+    "calendar_federation",
+    "sip_bridge",
+    "provider_failover",
+    "voice_personas",
+    "full_duplex_helpers"
+  ]
+}

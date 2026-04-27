@@ -1,0 +1,31 @@
+{
+  "caller_memory": [
+    "AI/Memory/CallerProfileMemory.php",
+    "AI/Memory/ConversationEmbeddingStore.php"
+  ],
+  "outcome_pipeline": [
+    "AI/Pipelines/OutcomeExtractionPipeline.php"
+  ],
+  "personas": [
+    "AI/Agents/PersonaResolver.php",
+    "AI/Prompts/reception_personas.php"
+  ],
+  "routing": [
+    "Workflows/Transitions/TransferDecisionTree.php",
+    "Services/TransferRoutingService.php"
+  ],
+  "automation": [
+    "Automation/Pipelines/MissedCallRecoveryPipeline.php"
+  ],
+  "calendar": [
+    "Contracts/CalendarProvider.php",
+    "Services/Calendar/CalendarProviderManager.php"
+  ],
+  "sip": [
+    "Contracts/SipProvider.php",
+    "Services/Sip/SipBridgeService.php"
+  ],
+  "failover": [
+    "Services/Providers/ProviderFailoverManager.php"
+  ]
+}

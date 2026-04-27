@@ -1,0 +1,37 @@
+{
+  "pass": 11,
+  "focus": [
+    "provider_abstraction",
+    "realtime_conversation",
+    "call_lifecycle",
+    "booking_reception",
+    "analytics_scoring",
+    "channel_federation",
+    "billing_guards"
+  ],
+  "source_archives_scanned": [
+    "modukes.zip",
+    "docs_merged_with_titan_core_v10.zip",
+    "site.zip",
+    "ExternalChatbot.zip",
+    "modules-main.zip",
+    "ChatbotWhatsapp.zip",
+    "ElevenLabsVoiceChat.zip",
+    "ChatbotMessenger.zip",
+    "ChatbotVoice.zip",
+    "ChatbotTelegram (1).zip",
+    "ChatbotAgent.zip",
+    "call-center-AI---Production-Grade-Cloud-Call-Center-SaaS-main.zip",
+    "twilio-elevenlabs-integration-copilot-setup-laravel-twilio-integration.zip",
+    "TitanHelloBase.zip",
+    "TitanBot.zip",
+    "TitanHello.zip",
+    "External-Chatbot-upgrade-pass09.zip",
+    "MarketingBot.zip",
+    "External-Chatbot-upgrade-pass01.zip",
+    "External-Chatbot-upgrade-pass03.zip",
+    "TitanBot_merged_best_base_pass12.zip",
+    "leadpilot_ai.zip.zip",
+    "CallingAgent.zip"
+  ]
+}
