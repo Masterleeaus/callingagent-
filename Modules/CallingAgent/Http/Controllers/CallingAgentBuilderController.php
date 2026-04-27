@@ -14,7 +14,11 @@ final class CallingAgentBuilderController extends Controller
 {
     public function index()
     {
-        return view('calling-agent::builder.index');
+        $agents = CallingAgent::select('id', 'name', 'status', 'phone_number')
+            ->orderBy('name')
+            ->get();
+
+        return view('calling-agent::builder.index', compact('agents'));
     }
 
     /**

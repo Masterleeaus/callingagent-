@@ -3,7 +3,6 @@
 namespace Modules\CallingAgent\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Modules\CallingAgent\Filament\Plugin\CallingAgentPlugin;
 
 class FilamentServiceProvider extends ServiceProvider
 {
@@ -11,8 +10,11 @@ class FilamentServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        if (class_exists(\Filament\FilamentManager::class) || class_exists(\Filament\Panel::class)) {
-            // Plugin is registered via Filament panel discovery or explicit panel configuration
+        if (!class_exists(\Filament\Panel::class)) {
+            return;
         }
+
+        // Resources are registered here for host apps that use auto-discovery.
+        // For manual panel registration, add CallingAgentPlugin::make() to your panel.
     }
 }
