@@ -1,0 +1,21 @@
+{
+  "module": "TitanChatbot",
+  "agents": [
+    "CleaningBusinessAgent"
+  ],
+  "tools": [
+    "QuoteEstimatorTool"
+  ],
+  "memory": [
+    "conversation",
+    "customer",
+    "embedding"
+  ],
+  "providers": [
+    "OpenAI",
+    "Anthropic",
+    "Gemini",
+    "ElevenLabs"
+  ],
+  "enabled": true
+}

@@ -1,0 +1,46 @@
+{
+  "TitanChatbot_Module_Pass01.zip": {
+    "bytes": 3552875,
+    "sha256": "d810346c9fb723c9eae695436a954df18bcec8fb73b466ea9601d935836bdea0"
+  },
+  "TitanBot_merged_best_base_pass12.zip": {
+    "bytes": 512594,
+    "sha256": "8d8bf6df067b7278d4fe092642ea909cd22dc33cc538659e805f655a2f6650de"
+  },
+  "ChatbotCombined_v7.zip": {
+    "bytes": 1255571,
+    "sha256": "b635d9a9b77bf4ba276eb5983777e612c5d82eb34401f07640e53e378992393d"
+  },
+  "ChatbotVoice_TitanGo_CoreRouted_v7.zip": {
+    "bytes": 118047,
+    "sha256": "beffb8d136ff6e4b2977e03a71d2718fdc56205088124c7b5dbf1995c331864d"
+  },
+  "TitanGo_full_module_v2.zip": {
+    "bytes": 426101,
+    "sha256": "6ef81a03be61b8332ef0c874a38eee34a28515203ed20d45d46164f4d5ba9f1b"
+  },
+  "ChatbotWhatsapp.zip": {
+    "bytes": 34269,
+    "sha256": "39b443c5792ea2d7ca4287f1e0448de113917a10081eb25ab6e0ef7be4d6d47c"
+  },
+  "ChatbotTelegram (1).zip": {
+    "bytes": 33939,
+    "sha256": "6a737d92988b6d9d27e2415c835847daf9492074b0825c569c1b499309f6781f"
+  },
+  "ChatbotMessenger.zip": {
+    "bytes": 34471,
+    "sha256": "302604ec328dfca8934201f2ffadc39ebb28ac0f08bffae7731237935f4de8f6"
+  },
+  "ChatbotAgent.zip": {
+    "bytes": 23963,
+    "sha256": "773ae5a132fff29e2933f3b43c22710937dad82baab6eb559e2712ead7be9cae"
+  },
+  "ElevenLabsVoiceChat.zip": {
+    "bytes": 28897,
+    "sha256": "69063e31baba9c1860c30e1b5a774a33add7f4f3f4b856ad0e19ac6ecac51d23"
+  },
+  "ChatbotVoice.zip": {
+    "bytes": 104588,
+    "sha256": "afb32c70ad8f5315a1b2dcf0947aca6958f2b8a51114df0888af94dd5003b3e5"
+  }
+}
