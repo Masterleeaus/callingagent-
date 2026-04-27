@@ -17,10 +17,15 @@ class RecordVoiceSessionBillingListener
             'message_count' => $event->messageCount,
         ]);
 
-        Log::channel('titan_chatbot')->info('RecordVoiceSessionBillingListener: recorded voice seconds', [
-            'session_id'      => $event->sessionId,
+        $logContext = [
+            'session_id'       => $event->sessionId,
             'duration_seconds' => $event->durationSeconds,
-            'message_count'   => $event->messageCount,
-        ]);
+            'message_count'    => $event->messageCount,
+        ];
+        try {
+            Log::channel('titan_chatbot')->info('RecordVoiceSessionBillingListener: recorded voice seconds', $logContext);
+        } catch (\Throwable $e) {
+            Log::info('RecordVoiceSessionBillingListener: recorded voice seconds', $logContext);
+        }
     }
 }

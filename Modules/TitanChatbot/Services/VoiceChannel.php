@@ -26,7 +26,8 @@ class VoiceChannel implements ChannelDriver
             /** @var \Modules\TitanChatbot\AI\Pipelines\VoiceConversationPipeline $pipeline */
             $pipeline = app(\Modules\TitanChatbot\AI\Pipelines\VoiceConversationPipeline::class);
 
-            return (string) $pipeline->process($payload);
+            $pipeline->setSessionId($payload['session_id'] ?? 'voice_default');
+            return (string) $pipeline->process($payload['message'] ?? '');
         } catch (\Throwable $e) {
             Log::error('VoiceChannel: pipeline failed.', ['error' => $e->getMessage()]);
 

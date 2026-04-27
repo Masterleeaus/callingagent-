@@ -6,6 +6,11 @@ use Illuminate\Support\Facades\Cache;
 
 class VoiceSecondsMeter
 {
+    public function record(float $seconds, array $context = []): void
+    {
+        $this->recordSeconds((int) ($context['tenant_id'] ?? 0), (int) ceil($seconds));
+    }
+
     public function recordSeconds(int $tenantId, int $seconds): void
     {
         $key = $this->buildKey($tenantId);

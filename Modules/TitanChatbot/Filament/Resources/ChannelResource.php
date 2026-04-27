@@ -20,8 +20,7 @@ if (class_exists(\Filament\Resources\Resource::class)) {
 
         public static function getModel(): string
         {
-            return \Modules\TitanChatbot\Models\ChatbotChannel::class
-                ?? \Illuminate\Database\Eloquent\Model::class;
+            return \Modules\TitanChatbot\Models\ChatbotChannel::class;
         }
 
         public static function form(\Filament\Forms\Form $form): \Filament\Forms\Form
