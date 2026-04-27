@@ -1,6 +1,34 @@
 {
   "module": "TitanChatbot",
   "manifest": "workflows",
-  "version": "1.0.0",
-  "enabled": true
+  "version": "2.0.0",
+  "enabled": true,
+  "workflows": [
+    {
+      "class": "Modules\\TitanChatbot\\Workflows\\Definitions\\EscalationWorkflow",
+      "description": "Handles escalation of a chatbot conversation to a human agent"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Workflows\\Definitions\\BookingWorkflow",
+      "description": "Guides the user through a booking or appointment flow"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Workflows\\Definitions\\LeadCaptureWorkflow",
+      "description": "Captures lead information during a conversation"
+    }
+  ],
+  "guards": [
+    {
+      "class": "Modules\\TitanChatbot\\Workflows\\Guards\\ConfidenceThresholdGuard",
+      "description": "Blocks workflow transitions when intent confidence is below threshold"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Workflows\\Guards\\HumanFallbackGuard",
+      "description": "Routes to human agent when the bot cannot handle the request"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Workflows\\Guards\\ChannelAvailabilityGuard",
+      "description": "Ensures the target channel is available before transitioning"
+    }
+  ]
 }

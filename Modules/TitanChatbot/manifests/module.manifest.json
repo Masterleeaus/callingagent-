@@ -1,23 +1,53 @@
 {
   "module": "TitanChatbot",
   "manifest": "module",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "enabled": true,
   "name": "TitanChatbot",
   "merged_pass": "03",
   "builder_ui": "preserved",
-  "capabilities": [
-    "external_chatbot_builder",
-    "rag_training",
-    "frontend_widget",
-    "whatsapp",
-    "telegram",
-    "messenger",
-    "voice",
-    "agent_handoff",
-    "connectors",
-    "analytics"
-  ],
+  "capabilities": {
+    "external_chatbot_builder": true,
+    "rag_training": true,
+    "frontend_widget": true,
+    "whatsapp": true,
+    "telegram": true,
+    "messenger": true,
+    "voice": true,
+    "agent_handoff": true,
+    "connectors": true,
+    "analytics": true,
+    "multi_tenant": true,
+    "billing_meters": true,
+    "event_driven": true,
+    "workflow_engine": true,
+    "search": true
+  },
+  "service_bindings": {
+    "singletons": [
+      "Modules\\TitanChatbot\\Services\\ConversationRouter",
+      "Modules\\TitanChatbot\\Services\\ConversationSessionManager",
+      "Modules\\TitanChatbot\\Services\\ConversationStateStore",
+      "Modules\\TitanChatbot\\Services\\GeneratorBridge",
+      "Modules\\TitanChatbot\\Services\\ChannelRouter",
+      "Modules\\TitanChatbot\\Services\\ChatbotAnalyticsService",
+      "Modules\\TitanChatbot\\AI\\Memory\\ConversationMemoryStore",
+      "Modules\\TitanChatbot\\AI\\Agents\\ConversationAgent",
+      "Modules\\TitanChatbot\\AI\\Agents\\BookingAgent",
+      "Modules\\TitanChatbot\\AI\\Agents\\SupportAgent",
+      "Modules\\TitanChatbot\\AI\\Agents\\VoiceAgent",
+      "Modules\\TitanChatbot\\Billing\\Meters\\ConversationMeter",
+      "Modules\\TitanChatbot\\Billing\\Meters\\VoiceSecondsMeter",
+      "Modules\\TitanChatbot\\Billing\\Meters\\EmbeddingMeter"
+    ],
+    "channel_drivers": {
+      "titan.channel.webchat": "Modules\\TitanChatbot\\Services\\WebchatChannel",
+      "titan.channel.whatsapp": "Modules\\TitanChatbot\\Services\\WhatsappChannel",
+      "titan.channel.telegram": "Modules\\TitanChatbot\\Services\\TelegramChannel",
+      "titan.channel.messenger": "Modules\\TitanChatbot\\Services\\MessengerChannel",
+      "titan.channel.voice": "Modules\\TitanChatbot\\Services\\VoiceChannel"
+    }
+  },
   "paths": {
     "builder_views": "Resources/views",
     "builder_assets": "Resources/assets",

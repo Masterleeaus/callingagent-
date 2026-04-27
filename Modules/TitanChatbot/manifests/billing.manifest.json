@@ -1,6 +1,23 @@
 {
   "module": "TitanChatbot",
   "manifest": "billing",
-  "version": "1.0.0",
-  "enabled": true
+  "version": "2.0.0",
+  "enabled": true,
+  "meters": [
+    {
+      "class": "Modules\\TitanChatbot\\Billing\\Meters\\ConversationMeter",
+      "unit": "conversation",
+      "description": "Meters each chatbot conversation started"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Billing\\Meters\\VoiceSecondsMeter",
+      "unit": "seconds",
+      "description": "Meters voice session duration in seconds"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Billing\\Meters\\EmbeddingMeter",
+      "unit": "embedding",
+      "description": "Meters embedding generation requests for RAG training"
+    }
+  ]
 }

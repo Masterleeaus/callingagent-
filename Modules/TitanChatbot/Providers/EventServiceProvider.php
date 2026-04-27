@@ -1,25 +1,34 @@
 <?php
+
 namespace Modules\TitanChatbot\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Modules\TitanChatbot\Automation\Handlers\EscalateToAgentHandler;
+use Modules\TitanChatbot\Automation\Handlers\SendSuggestedPromptsHandler;
+use Modules\TitanChatbot\Automation\Handlers\SendWelcomeBannerHandler;
+use Modules\TitanChatbot\Events\ConversationEscalated;
+use Modules\TitanChatbot\Events\ConversationStarted;
+use Modules\TitanChatbot\Events\IntentDetected;
+use Modules\TitanChatbot\Events\MessageReceived;
+use Modules\TitanChatbot\Events\VoiceSessionDurationRecorded;
+use Modules\TitanChatbot\Events\VoiceSessionStarted;
+use Modules\TitanChatbot\Listeners\RecordVoiceSessionBillingListener;
 
 class EventServiceProvider extends ServiceProvider
 {
-    public function register(): void
-    {
-        if (is_file(__DIR__ . '/../Config/config.php')) {
-            $this->mergeConfigFrom(__DIR__ . '/../Config/config.php', 'titan-chatbot');
-        }
-    }
-
-    public function boot(): void
-    {
-        if (is_dir(__DIR__ . '/../Database/migrations')) {
-            $this->loadMigrationsFrom(__DIR__ . '/../Database/migrations');
-        }
-
-        if (is_dir(__DIR__ . '/../Resources/views')) {
-            $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'titan-chatbot');
-        }
-    }
+    protected $listen = [
+        ConversationStarted::class => [
+            SendWelcomeBannerHandler::class,
+            SendSuggestedPromptsHandler::class,
+        ],
+        ConversationEscalated::class => [
+            EscalateToAgentHandler::class,
+        ],
+        IntentDetected::class => [],
+        VoiceSessionStarted::class => [],
+        VoiceSessionDurationRecorded::class => [
+            RecordVoiceSessionBillingListener::class,
+        ],
+        MessageReceived::class => [],
+    ];
 }

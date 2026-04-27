@@ -1,6 +1,37 @@
 {
   "module": "TitanChatbot",
   "manifest": "events",
-  "version": "1.0.0",
-  "enabled": true
+  "version": "2.0.0",
+  "enabled": true,
+  "events": [
+    {
+      "class": "Modules\\TitanChatbot\\Events\\ConversationStarted",
+      "description": "Fired when a new chatbot conversation is initiated",
+      "payload": ["payload: MessagePayload", "chatbot: mixed"]
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Events\\ConversationEscalated",
+      "description": "Fired when a conversation is escalated to a human agent",
+      "payload": ["conversationId: int", "chatbot: mixed", "conversation: mixed"]
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Events\\IntentDetected",
+      "description": "Fired when an intent is detected in a conversation",
+      "payload": ["intent: string", "confidence: float", "conversationId: int", "chatbot: mixed"]
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Events\\VoiceSessionStarted",
+      "description": "Fired when a voice session begins",
+      "payload": ["conversationId: int", "chatbot: mixed"]
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Events\\VoiceSessionDurationRecorded",
+      "description": "Fired when a voice session ends and duration is recorded",
+      "payload": ["sessionId: string", "durationSeconds: float", "messageCount: int"]
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Events\\MessageReceived",
+      "description": "Fired when a message is received in a conversation"
+    }
+  ]
 }

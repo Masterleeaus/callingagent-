@@ -12,6 +12,7 @@ use Modules\TitanChatbot\Billing\Meters\ConversationMeter;
 use Modules\TitanChatbot\Billing\Meters\EmbeddingMeter;
 use Modules\TitanChatbot\Billing\Meters\VoiceSecondsMeter;
 use Modules\TitanChatbot\Services\ChannelRouter;
+use Modules\TitanChatbot\Services\ChatbotAnalyticsService;
 use Modules\TitanChatbot\Services\ConversationRouter;
 use Modules\TitanChatbot\Services\ConversationSessionManager;
 use Modules\TitanChatbot\Services\ConversationStateStore;
@@ -47,6 +48,7 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->singleton(GeneratorBridge::class);
         $this->app->singleton(ChannelRouter::class);
         $this->app->singleton(ConversationMemoryStore::class);
+        $this->app->singleton(ChatbotAnalyticsService::class);
 
         // AI agents
         $this->app->singleton(ConversationAgent::class);

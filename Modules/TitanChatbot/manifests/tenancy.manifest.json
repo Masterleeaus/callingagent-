@@ -1,6 +1,24 @@
 {
   "module": "TitanChatbot",
   "manifest": "tenancy",
-  "version": "1.0.0",
-  "enabled": true
+  "version": "2.0.0",
+  "enabled": true,
+  "scopes": [
+    {
+      "class": "Modules\\TitanChatbot\\Tenancy\\Scopes\\TenantConversationScope",
+      "description": "Applies tenant boundary scoping to conversation queries"
+    }
+  ],
+  "policies": [
+    {
+      "class": "Modules\\TitanChatbot\\Tenancy\\Policies\\TenantChatbotPolicy",
+      "description": "Authorisation policy for chatbot resources within a tenant"
+    }
+  ],
+  "resolvers": [
+    {
+      "class": "Modules\\TitanChatbot\\Tenancy\\Resolvers\\ChatbotTenantResolver",
+      "description": "Resolves the current tenant from a chatbot context"
+    }
+  ]
 }

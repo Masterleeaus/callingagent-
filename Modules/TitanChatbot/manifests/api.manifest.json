@@ -1,6 +1,32 @@
 {
   "module": "TitanChatbot",
   "manifest": "api",
-  "version": "1.0.0",
-  "enabled": true
+  "version": "2.0.0",
+  "enabled": true,
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/api/chatbots/{id}/message",
+      "description": "Send a message to a chatbot and receive a response",
+      "auth": "sanctum"
+    },
+    {
+      "method": "POST",
+      "path": "/api/chatbots/{id}/voice",
+      "description": "Start or continue a voice session with a chatbot",
+      "auth": "sanctum"
+    },
+    {
+      "method": "GET",
+      "path": "/api/chatbots/{id}/history",
+      "description": "Retrieve the conversation history for a chatbot session",
+      "auth": "sanctum"
+    },
+    {
+      "method": "POST",
+      "path": "/api/chatbots/{id}/train",
+      "description": "Trigger a RAG training run for a chatbot",
+      "auth": "sanctum"
+    }
+  ]
 }

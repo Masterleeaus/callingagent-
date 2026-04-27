@@ -1,21 +1,30 @@
 {
   "module": "TitanChatbot",
+  "manifest": "ai",
+  "version": "2.0.0",
+  "enabled": true,
   "agents": [
-    "CleaningBusinessAgent"
+    "Modules\\TitanChatbot\\AI\\Agents\\ConversationAgent",
+    "Modules\\TitanChatbot\\AI\\Agents\\BookingAgent",
+    "Modules\\TitanChatbot\\AI\\Agents\\SupportAgent",
+    "Modules\\TitanChatbot\\AI\\Agents\\VoiceAgent"
+  ],
+  "pipelines": [
+    "Modules\\TitanChatbot\\AI\\Pipelines\\RagPipeline",
+    "Modules\\TitanChatbot\\AI\\Pipelines\\RagAnswerPipeline",
+    "Modules\\TitanChatbot\\AI\\Pipelines\\VoiceConversationPipeline"
   ],
   "tools": [
+    "Modules\\TitanChatbot\\AI\\Tools\\EmbeddingResolver",
     "QuoteEstimatorTool"
   ],
   "memory": [
-    "conversation",
-    "customer",
-    "embedding"
+    "Modules\\TitanChatbot\\AI\\Memory\\ConversationMemoryStore"
   ],
   "providers": [
     "OpenAI",
     "Anthropic",
     "Gemini",
     "ElevenLabs"
-  ],
-  "enabled": true
+  ]
 }

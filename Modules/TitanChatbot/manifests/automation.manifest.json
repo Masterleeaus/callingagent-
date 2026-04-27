@@ -1,6 +1,38 @@
 {
   "module": "TitanChatbot",
   "manifest": "automation",
-  "version": "1.0.0",
-  "enabled": true
+  "version": "2.0.0",
+  "enabled": true,
+  "triggers": [
+    {
+      "class": "Modules\\TitanChatbot\\Automation\\Triggers\\ConversationStartedTrigger",
+      "listens_to": "Modules\\TitanChatbot\\Events\\ConversationStarted"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Automation\\Triggers\\ConversationEscalatedTrigger",
+      "listens_to": "Modules\\TitanChatbot\\Events\\ConversationEscalated"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Automation\\Triggers\\IntentDetectedTrigger",
+      "listens_to": "Modules\\TitanChatbot\\Events\\IntentDetected"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Automation\\Triggers\\VoiceSessionStartedTrigger",
+      "listens_to": "Modules\\TitanChatbot\\Events\\VoiceSessionStarted"
+    }
+  ],
+  "handlers": [
+    {
+      "class": "Modules\\TitanChatbot\\Automation\\Handlers\\SendSuggestedPromptsHandler",
+      "description": "Sends configured suggested prompts to the conversation channel"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Automation\\Handlers\\SendWelcomeBannerHandler",
+      "description": "Sends the welcome banner message to new conversations"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Automation\\Handlers\\EscalateToAgentHandler",
+      "description": "Escalates a conversation to a human agent and fires the escalation event"
+    }
+  ]
 }

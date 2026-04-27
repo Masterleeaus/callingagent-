@@ -1,5 +1,8 @@
 {
   "module": "TitanChatbot",
+  "manifest": "routes",
+  "version": "2.0.0",
+  "enabled": true,
   "web": [
     "/titan-chatbot",
     "/titan-chatbot/channels",
@@ -7,7 +10,10 @@
     "/titan-chatbot/agent"
   ],
   "api": [
-    "/api/titan-chatbot/health"
-  ],
-  "enabled": true
+    "/api/titan-chatbot/health",
+    "/api/chatbots/{id}/message",
+    "/api/chatbots/{id}/voice",
+    "/api/chatbots/{id}/history",
+    "/api/chatbots/{id}/train"
+  ]
 }
