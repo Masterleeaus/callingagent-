@@ -67,10 +67,7 @@ final class CallingAgentBuilderController extends Controller
         $settings = array_merge($agent->settings ?? [], $validated['settings'] ?? []);
 
         $agent->update(array_merge(
-            array_filter(array_intersect_key($validated, array_flip([
-                'name', 'first_message', 'instructions',
-                'language', 'elevenlabs_agent_id', 'elevenlabs_voice_id',
-            ])), fn ($v) => $v !== null),
+            $this->extractAgentFields($validated),
             ['settings' => $settings]
         ));
 
@@ -129,6 +126,23 @@ final class CallingAgentBuilderController extends Controller
         );
 
         return ['persona' => $persona, 'routing' => $routing];
+    }
+
+    /**
+     * Extract only the top-level CallingAgent model fields from validated input,
+     * filtering out nulls so we don't overwrite existing values with null.
+     */
+    private function extractAgentFields(array $validated): array
+    {
+        $allowed = [
+            'name', 'first_message', 'instructions',
+            'language', 'elevenlabs_agent_id', 'elevenlabs_voice_id',
+        ];
+
+        return array_filter(
+            array_intersect_key($validated, array_flip($allowed)),
+            fn ($v) => $v !== null
+        );
     }
 
     /**

@@ -88,7 +88,11 @@ class TwilioVoiceWebhookController extends Controller
             ]);
         } catch (\Throwable $e) {
             // Skip if table not yet migrated; report other errors.
-            if (!str_contains($e->getMessage(), "doesn't exist") && !str_contains($e->getMessage(), 'no such table')) {
+            $isMissing = ($e instanceof \Illuminate\Database\QueryException
+                && in_array((string) $e->getCode(), ['1146', '42P01', 'HY000'], true))
+                || str_contains(strtolower($e->getMessage()), "doesn't exist")
+                || str_contains(strtolower($e->getMessage()), 'no such table');
+            if (!$isMissing) {
                 report($e);
             }
         }

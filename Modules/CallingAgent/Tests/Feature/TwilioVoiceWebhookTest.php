@@ -421,14 +421,16 @@ class TwilioVoiceWebhookTest extends TestCase
 
     public function test_insufficient_credit_twiml_view_exists(): void
     {
-        $viewPath = __DIR__ . '/../../Resources/views/twiml/insufficient-credits.blade.php';
+        $viewPath = realpath(__DIR__ . '/../../Resources/views/twiml/insufficient-credits.blade.php');
+        $this->assertNotFalse($viewPath, 'insufficient-credits.blade.php could not be resolved — it must not be deleted');
         $this->assertFileExists($viewPath, 'insufficient-credits.blade.php must not be deleted');
         $this->assertGreaterThan(0, filesize($viewPath), 'insufficient-credits.blade.php must not be empty');
     }
 
     public function test_insufficient_credit_view_contains_hangup(): void
     {
-        $viewPath = __DIR__ . '/../../Resources/views/twiml/insufficient-credits.blade.php';
+        $viewPath = realpath(__DIR__ . '/../../Resources/views/twiml/insufficient-credits.blade.php');
+        $this->assertNotFalse($viewPath, 'View file path could not be resolved');
         $content  = file_get_contents($viewPath);
         $this->assertStringContainsStringIgnoringCase('hangup', $content);
     }

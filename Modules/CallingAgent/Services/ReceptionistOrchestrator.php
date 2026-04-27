@@ -225,6 +225,21 @@ class ReceptionistOrchestrator
     // Missed-call recovery
     // -------------------------------------------------------------------------
 
+    private function isMissingTableException(\Throwable $e): bool
+    {
+        if ($e instanceof \Illuminate\Database\QueryException) {
+            // MySQL: 1146, SQLite: general "no such table", PostgreSQL: 42P01
+            $code = (string) $e->getCode();
+            if (in_array($code, ['1146', '42P01', 'HY000'], true)) {
+                return true;
+            }
+        }
+        $msg = strtolower($e->getMessage());
+        return str_contains($msg, "doesn't exist")
+            || str_contains($msg, 'no such table')
+            || str_contains($msg, 'does not exist');
+    }
+
     private function scheduleMissedCallRecovery(CallingAgentCall $call): void
     {
         try {
@@ -240,8 +255,7 @@ class ReceptionistOrchestrator
                 'updated_at'            => now(),
             ]);
         } catch (\Throwable $e) {
-            // Table may not exist yet
-            if (!str_contains($e->getMessage(), "doesn't exist") && !str_contains($e->getMessage(), 'no such table')) {
+            if (!$this->isMissingTableException($e)) {
                 report($e);
             }
         }
