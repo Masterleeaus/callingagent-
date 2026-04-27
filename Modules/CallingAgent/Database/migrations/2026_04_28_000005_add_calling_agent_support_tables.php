@@ -8,22 +8,8 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('calling_agent_caller_profiles', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('tenant_id')->nullable()->index();
-            $table->unsignedBigInteger('calling_agent_id')->nullable()->index();
-            $table->string('phone')->index();
-            $table->string('email')->nullable();
-            $table->string('name')->nullable();
-            $table->string('customer_id')->nullable()->index();
-            $table->timestamp('last_call_at')->nullable();
-            $table->integer('call_count')->default(0);
-            $table->longText('notes')->nullable();
-            $table->json('preferences')->nullable();
-            $table->json('tags')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        // calling_agent_caller_profiles is already created in migration 000004.
+        // This migration adds only the tables not present in earlier migrations.
 
         Schema::create('calling_agent_recordings', function (Blueprint $table) {
             $table->id();
@@ -39,17 +25,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('calling_agent_builder_presets', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('tenant_id')->nullable()->index();
-            $table->unsignedBigInteger('calling_agent_id')->nullable()->index();
-            $table->string('name');
-            $table->string('preset_type')->nullable();
-            $table->json('definition');
-            $table->boolean('is_default')->default(false);
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        // calling_agent_builder_presets is already created in migration 000004.
 
         Schema::create('calling_agent_webhook_idempotency', function (Blueprint $table) {
             $table->id();
@@ -96,8 +72,6 @@ return new class extends Migration
         Schema::dropIfExists('calling_agent_missed_call_recovery_tasks');
         Schema::dropIfExists('calling_agent_transfer_attempts');
         Schema::dropIfExists('calling_agent_webhook_idempotency');
-        Schema::dropIfExists('calling_agent_builder_presets');
         Schema::dropIfExists('calling_agent_recordings');
-        Schema::dropIfExists('calling_agent_caller_profiles');
     }
 };

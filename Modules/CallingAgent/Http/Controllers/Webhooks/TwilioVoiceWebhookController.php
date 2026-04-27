@@ -35,9 +35,9 @@ class TwilioVoiceWebhookController extends Controller
 
     public function gather(Request $request)
     {
-        $call = $this->orchestrator->startInbound($request->all());
+        $call   = $this->orchestrator->startInbound($request->all());
         $speech = $request->input('SpeechResult') ?: $request->input('Digits') ?: '';
-        $reply = $speech
+        $reply  = $speech
             ? $this->orchestrator->answer($call, $speech)
             : 'I did not catch that. Could you please repeat?';
 
@@ -60,30 +60,36 @@ class TwilioVoiceWebhookController extends Controller
 
     public function recording(Request $request)
     {
-        $callSid = $request->input('CallSid');
+        $callSid      = $request->input('CallSid');
         $recordingSid = $request->input('RecordingSid');
         $recordingUrl = $request->input('RecordingUrl');
-        $duration = (int) $request->input('RecordingDuration', 0);
+        $duration     = (int) $request->input('RecordingDuration', 0);
 
-        if ($callSid && $recordingSid) {
-            CallingAgentCall::where('call_sid', $callSid)
-                ->update(['recording_url' => $recordingUrl]);
+        if (!$callSid || !$recordingSid) {
+            return response('', 204);
+        }
 
-            try {
-                \DB::table('calling_agent_recordings')->insert([
-                    'call_sid'      => $callSid,
-                    'recording_sid' => $recordingSid,
-                    'recording_url' => $recordingUrl,
-                    'duration'      => $duration,
-                    'created_at'    => now(),
-                    'updated_at'    => now(),
-                ]);
-            } catch (\Throwable $e) {
-                // Silently skip if table does not yet exist (pre-migration run).
-                // Any other failure is logged for visibility.
-                if (!str_contains($e->getMessage(), "doesn't exist") && !str_contains($e->getMessage(), 'no such table')) {
-                    report($e);
-                }
+        // Idempotency: skip if already processed
+        if ($this->orchestrator->isDuplicate('recording:' . $recordingSid, 'twilio')) {
+            return response('', 204);
+        }
+
+        CallingAgentCall::where('call_sid', $callSid)
+            ->update(['recording_url' => $recordingUrl]);
+
+        try {
+            \DB::table('calling_agent_recordings')->insert([
+                'call_sid'      => $callSid,
+                'recording_sid' => $recordingSid,
+                'recording_url' => $recordingUrl,
+                'duration'      => $duration,
+                'created_at'    => now(),
+                'updated_at'    => now(),
+            ]);
+        } catch (\Throwable $e) {
+            // Skip if table not yet migrated; report other errors.
+            if (!str_contains($e->getMessage(), "doesn't exist") && !str_contains($e->getMessage(), 'no such table')) {
+                report($e);
             }
         }
 
@@ -92,11 +98,18 @@ class TwilioVoiceWebhookController extends Controller
 
     public function voicemail(Request $request)
     {
-        $callSid = $request->input('CallSid');
+        $callSid      = $request->input('CallSid');
         $recordingUrl = $request->input('RecordingUrl');
+        $recordingSid = $request->input('RecordingSid');
 
         $r = new VoiceResponse();
+
         if ($request->input('RecordingStatus') === 'completed' && $callSid) {
+            // Idempotency: skip if already processed
+            if ($recordingSid && $this->orchestrator->isDuplicate('voicemail:' . $recordingSid, 'twilio')) {
+                return response($r->asXML(), 200)->header('Content-Type', 'text/xml');
+            }
+
             CallingAgentCall::where('call_sid', $callSid)
                 ->update([
                     'status'        => 'voicemail',
@@ -105,6 +118,7 @@ class TwilioVoiceWebhookController extends Controller
                 ]);
             CallingAgentActiveCall::where('call_sid', $callSid)->delete();
         } else {
+            // Prompt to leave voicemail
             $r->say('Please leave your message after the tone. Press any key when finished.');
             $r->record([
                 'action'      => route('calling-agent.webhooks.voice.voicemail'),
@@ -120,4 +134,3 @@ class TwilioVoiceWebhookController extends Controller
         return response($r->asXML(), 200)->header('Content-Type', 'text/xml');
     }
 }
-
