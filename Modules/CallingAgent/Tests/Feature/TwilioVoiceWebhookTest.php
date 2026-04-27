@@ -109,6 +109,8 @@ class TwilioVoiceWebhookTest extends TestCase
 
     public function test_invalid_twilio_signature_is_rejected(): void
     {
+        // Ensure validation is NOT skipped so we can test rejection
+        config(['calling-agent.skip_twilio_validation' => false]);
         config(['services.twilio.token' => 'real-secret-token-for-test']);
 
         $params = [
@@ -123,7 +125,8 @@ class TwilioVoiceWebhookTest extends TestCase
             ['X-Twilio-Signature' => 'invalid-signature']
         );
 
-        $this->assertContains($response->status(), [200, 403]);
+        // An invalid signature must always be rejected with 403
+        $response->assertStatus(403);
     }
 
     public function test_receptionist_agent_fallback_responds(): void

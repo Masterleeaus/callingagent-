@@ -79,7 +79,11 @@ class TwilioVoiceWebhookController extends Controller
                     'updated_at'    => now(),
                 ]);
             } catch (\Throwable $e) {
-                // Table may not exist yet - fail silently
+                // Silently skip if table does not yet exist (pre-migration run).
+                // Any other failure is logged for visibility.
+                if (!str_contains($e->getMessage(), "doesn't exist") && !str_contains($e->getMessage(), 'no such table')) {
+                    report($e);
+                }
             }
         }
 

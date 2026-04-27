@@ -16,6 +16,6 @@ class PolicyServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
-        Gate::define('manage-calling-agent', CallingAgentPolicy::class.'@update');
+        Gate::define('manage-calling-agent', [CallingAgentPolicy::class, 'update']);
     }
 }
