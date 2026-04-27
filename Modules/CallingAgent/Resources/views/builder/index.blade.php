@@ -28,6 +28,9 @@
         <div style="margin-top:2rem;">
             <button id="ca-save-btn" type="button" style="width:100%;background:#3b82f6;color:#fff;border:none;border-radius:.375rem;padding:.5rem;cursor:pointer;font-size:.875rem;font-weight:600;">Save</button>
         </div>
+        <div style="margin-top:.5rem;">
+            <button id="ca-test-call-btn" type="button" style="width:100%;background:#059669;color:#fff;border:none;border-radius:.375rem;padding:.5rem;cursor:pointer;font-size:.875rem;font-weight:600;" title="Place a test outbound call to verify the agent">☎ Test Call</button>
+        </div>
     </aside>
 
     <main class="calling-agent-builder__canvas" style="flex:1;overflow-y:auto;padding:1.5rem;">

@@ -96,7 +96,10 @@
       headers: { 'Accept': 'application/json', 'X-CSRF-TOKEN': getCSRFToken() },
       credentials: 'same-origin',
     })
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) { throw new Error('HTTP ' + r.status); }
+        return r.json();
+      })
       .then((data) => {
         // Merge agent top-level + settings into one flat search object
         const merged = Object.assign({}, data.agent || {}, { settings: data.settings || {} });
@@ -133,12 +136,15 @@
       credentials: 'same-origin',
       body: JSON.stringify(data),
     })
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) { return r.json().then((e) => { throw new Error(e.message || 'HTTP ' + r.status); }); }
+        return r.json();
+      })
       .then((resp) => {
         if (resp.success) {
           setStatus('Saved ✓', '#10b981');
         } else {
-          setStatus('Save failed', '#ef4444');
+          setStatus('Save failed: ' + (resp.message || 'Unknown error'), '#ef4444');
         }
       })
       .catch((err) => {
@@ -204,5 +210,40 @@
   const saveBtn = document.getElementById('ca-save-btn');
   if (saveBtn) {
     saveBtn.addEventListener('click', saveAgent);
+  }
+
+  // ── Test-call button ───────────────────────────────────────────────────────
+  const testCallBtn = document.getElementById('ca-test-call-btn');
+  if (testCallBtn) {
+    testCallBtn.addEventListener('click', () => {
+      if (!currentAgentId) { setStatus('Select an agent first.', '#f59e0b'); return; }
+      const to = prompt('Enter phone number to call (E.164 format, e.g. +15005550006):');
+      if (!to) return;
+      setStatus('Placing test call…');
+      fetch('/api/calling-agent/calls/outbound', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'X-CSRF-TOKEN': getCSRFToken(),
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify({
+          to,
+          twiml_url: root.dataset.builderSaveUrl
+            ? new URL(root.dataset.builderSaveUrl).origin + '/calling-agent/webhooks/twilio/voice/incoming'
+            : window.location.origin + '/calling-agent/webhooks/twilio/voice/incoming',
+        }),
+      })
+        .then((r) => r.json())
+        .then((resp) => {
+          if (resp.call_sid) {
+            setStatus('Test call placed ✓ SID: ' + resp.call_sid, '#10b981');
+          } else {
+            setStatus('Test call failed: ' + (resp.error || 'Unknown error'), '#ef4444');
+          }
+        })
+        .catch((err) => setStatus('Error: ' + err.message, '#ef4444'));
+    });
   }
 })();

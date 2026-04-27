@@ -28,5 +28,11 @@ Route::middleware(['api'])
 Route::post('calling-agent/realtime/twilio', [\Modules\CallingAgent\Http\Controllers\RealtimeStreamController::class, 'twilio'])
     ->name('calling-agent.realtime.twilio');
 
+Route::post('calling-agent/realtime/token', [\Modules\CallingAgent\Http\Controllers\RealtimeStreamController::class, 'token'])
+    ->name('calling-agent.realtime.token');
+
+Route::post('calling-agent/realtime/validate-token', [\Modules\CallingAgent\Http\Controllers\RealtimeStreamController::class, 'validateToken'])
+    ->name('calling-agent.realtime.validate-token');
+
 Route::post('calling-agent/receptionist/slots', [\Modules\CallingAgent\Http\Controllers\ReceptionistBookingController::class, 'slots'])
     ->name('calling-agent.receptionist.slots');

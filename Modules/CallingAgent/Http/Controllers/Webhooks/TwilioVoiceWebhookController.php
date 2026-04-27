@@ -4,6 +4,7 @@ namespace Modules\CallingAgent\Http\Controllers\Webhooks;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\CallingAgent\Billing\Usage\CallUsageRecorder;
 use Modules\CallingAgent\Services\TwilioChannelService;
 use Modules\CallingAgent\Services\ReceptionistOrchestrator;
 use Modules\CallingAgent\Models\CallingAgentCall;
@@ -14,7 +15,8 @@ class TwilioVoiceWebhookController extends Controller
 {
     public function __construct(
         private TwilioChannelService $twilio,
-        private ReceptionistOrchestrator $orchestrator
+        private ReceptionistOrchestrator $orchestrator,
+        private CallUsageRecorder $usageRecorder,
     ) {}
 
     public function incoming(Request $request)
@@ -54,6 +56,16 @@ class TwilioVoiceWebhookController extends Controller
     {
         if ($callSid = $request->input('CallSid')) {
             $this->orchestrator->complete($callSid, $request->all());
+
+            // Billing: record voice seconds once, idempotently
+            $call = CallingAgentCall::where('call_sid', $callSid)->first();
+            if ($call && in_array($request->input('CallStatus'), ['completed', 'failed', 'busy', 'no-answer'], true)) {
+                try {
+                    $this->usageRecorder->record($call);
+                } catch (\Throwable $e) {
+                    report($e);
+                }
+            }
         }
         return response('', 204);
     }

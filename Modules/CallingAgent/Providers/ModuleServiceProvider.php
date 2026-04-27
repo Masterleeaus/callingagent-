@@ -7,6 +7,8 @@ use Modules\CallingAgent\Services\TwilioChannelService;
 use Modules\CallingAgent\Services\ReceptionistOrchestrator;
 use Modules\CallingAgent\AI\Agents\ReceptionistAgent;
 
+use Modules\CallingAgent\Services\Realtime\RealtimeSessionTokenService;
+
 class ModuleServiceProvider extends ServiceProvider
 {
     public function register(): void
@@ -35,6 +37,7 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->singleton(TwilioChannelService::class);
         $this->app->singleton(ReceptionistAgent::class);
         $this->app->singleton(ReceptionistOrchestrator::class);
+        $this->app->singleton(RealtimeSessionTokenService::class);
     }
 
     public function boot(): void

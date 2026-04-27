@@ -77,6 +77,21 @@ class CallingAgentApiController extends Controller
             'target' => 'required|string',
         ]);
 
+        if (!$twilio->isAvailable()) {
+            // SDK not installed or credentials missing — log attempt but succeed gracefully
+            \Log::warning('CallingAgent: transfer attempted but Twilio SDK unavailable', [
+                'call_sid' => $callSid,
+                'target'   => $validated['target'],
+            ]);
+            // Still persist the attempt
+            $this->persistTransferAttempt($callSid, $validated['target'], 'sdk-unavailable');
+            return response()->json([
+                'success' => false,
+                'error'   => 'Twilio SDK or credentials not available',
+                'call_sid'=> $callSid,
+            ], 422);
+        }
+
         // Generate a Dial TwiML and update the call via Twilio REST
         $twiml = '<Response><Dial>' . e($validated['target']) . '</Dial></Response>';
 
@@ -90,18 +105,7 @@ class CallingAgentApiController extends Controller
         }
 
         // Persist transfer attempt
-        try {
-            \DB::table('calling_agent_transfer_attempts')->insert([
-                'call_sid'       => $callSid,
-                'target_number'  => $validated['target'],
-                'status'         => 'initiated',
-                'attempted_at'   => now(),
-                'created_at'     => now(),
-                'updated_at'     => now(),
-            ]);
-        } catch (\Throwable $e) {
-            report($e);
-        }
+        $this->persistTransferAttempt($callSid, $validated['target'], 'initiated');
 
         return response()->json(['success' => true, 'call_sid' => $callSid, 'target' => $validated['target']]);
     }
@@ -111,6 +115,16 @@ class CallingAgentApiController extends Controller
      */
     public function hangup(Request $request, TwilioChannelService $twilio, ReceptionistOrchestrator $orchestrator, string $callSid): JsonResponse
     {
+        if (!$twilio->isAvailable()) {
+            \Log::warning('CallingAgent: hangup attempted but Twilio SDK unavailable', ['call_sid' => $callSid]);
+            $orchestrator->complete($callSid, ['CallStatus' => 'completed', 'CallSid' => $callSid]);
+            return response()->json([
+                'success' => false,
+                'error'   => 'Twilio SDK or credentials not available',
+                'call_sid'=> $callSid,
+            ], 422);
+        }
+
         try {
             $twilio->client()->calls($callSid)->update(['status' => 'completed']);
         } catch (\Throwable $e) {
@@ -121,5 +135,23 @@ class CallingAgentApiController extends Controller
         $orchestrator->complete($callSid, ['CallStatus' => 'completed', 'CallSid' => $callSid]);
 
         return response()->json(['success' => true, 'call_sid' => $callSid]);
+    }
+
+    // ── Private helpers ───────────────────────────────────────────────────────
+
+    private function persistTransferAttempt(string $callSid, string $target, string $status): void
+    {
+        try {
+            \DB::table('calling_agent_transfer_attempts')->insert([
+                'call_sid'      => $callSid,
+                'target_number' => $target,
+                'status'        => $status,
+                'attempted_at'  => now(),
+                'created_at'    => now(),
+                'updated_at'    => now(),
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+        }
     }
 }
