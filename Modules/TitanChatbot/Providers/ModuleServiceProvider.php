@@ -19,6 +19,7 @@ use Modules\TitanChatbot\Services\ConversationStateStore;
 use Modules\TitanChatbot\Services\GeneratorBridge;
 use Modules\TitanChatbot\Services\MessengerChannel;
 use Modules\TitanChatbot\Services\TelegramChannel;
+use Modules\TitanChatbot\Services\TrainingPipeline;
 use Modules\TitanChatbot\Services\VoiceChannel;
 use Modules\TitanChatbot\Services\WebchatChannel;
 use Modules\TitanChatbot\Services\WhatsappChannel;
@@ -49,6 +50,7 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->singleton(ChannelRouter::class);
         $this->app->singleton(ConversationMemoryStore::class);
         $this->app->singleton(ChatbotAnalyticsService::class);
+        $this->app->singleton(TrainingPipeline::class);
 
         // AI agents
         $this->app->singleton(ConversationAgent::class);

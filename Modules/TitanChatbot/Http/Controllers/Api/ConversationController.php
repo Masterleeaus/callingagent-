@@ -74,14 +74,24 @@ class ConversationController extends Controller
     public function train(Request $request, int $id): JsonResponse
     {
         $request->validate([
-            'content'  => 'required|string',
-            'title'    => 'sometimes|string|max:255',
-            'metadata' => 'sometimes|array',
+            'content'     => 'required|string',
+            'title'       => 'sometimes|string|max:255',
+            'source_type' => 'sometimes|string|in:text,qa,pdf,url',
+            'metadata'    => 'sometimes|array',
         ]);
 
+        $pipeline = app(\Modules\TitanChatbot\Services\TrainingPipeline::class);
+        $chunks = $pipeline->ingest(
+            chatbotId:  $id,
+            sourceType: $request->input('source_type', 'text'),
+            content:    $request->input('content'),
+            metadata:   $request->input('metadata', []),
+        );
+
         return response()->json([
-            'message'    => 'Training job queued.',
-            'chatbot_id' => $id,
-        ], 202);
+            'message'        => 'Training complete.',
+            'chatbot_id'     => $id,
+            'chunks_created' => $chunks,
+        ]);
     }
 }
