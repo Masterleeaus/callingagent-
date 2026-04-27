@@ -1,0 +1,19 @@
+{
+  "name": "Calling Agent Builder UI",
+  "preserve_existing_ui": true,
+  "routes": [
+    "calling-agent.builder",
+    "calling-agent.builder.preview"
+  ],
+  "views": [
+    "Resources/views/builder/index.blade.php",
+    "Resources/views/layouts/builder.blade.php"
+  ],
+  "assets": [
+    "Resources/assets/js/builder.js",
+    "Resources/assets/css/builder.css"
+  ],
+  "filament": [
+    "Filament/Pages/CallingAgentBuilderPage.php"
+  ]
+}

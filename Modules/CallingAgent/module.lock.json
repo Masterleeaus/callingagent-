@@ -1,0 +1,16 @@
+{
+  "locked_at": "2026-04-27T19:12:17.027955Z",
+  "sources": [
+    "ExternalChatbot",
+    "ChatbotWhatsapp",
+    "ChatbotVoice",
+    "ElevenLabsVoiceChat",
+    "ChatbotAgent",
+    "ChatbotMessenger",
+    "ChatbotTelegram",
+    "call-center-AI",
+    "twilio-elevenlabs-integration"
+  ],
+  "merge_strategy": "reuse-extend-refactor",
+  "namespace": "Modules\\CallingAgent"
+}

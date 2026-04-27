@@ -1,0 +1,37 @@
+{
+  "name": "CallingAgent",
+  "alias": "calling-agent",
+  "description": "Merged calling agent module with Twilio/ElevenLabs voice, omnichannel reception workflows, builder UI, caller memory, outcome intelligence, transfer routing, calendar federation, SIP and provider failover.",
+  "version": "1.0.12",
+  "priority": 20,
+  "providers": [
+    "Modules\\CallingAgent\\Providers\\ModuleServiceProvider"
+  ],
+  "requires": [
+    "twilio/sdk",
+    "guzzlehttp/guzzle"
+  ],
+  "source_extensions": [
+    "ExternalChatbot",
+    "ChatbotWhatsapp",
+    "ChatbotVoice",
+    "ElevenLabsVoiceChat",
+    "ChatbotAgent",
+    "ChatbotMessenger",
+    "ChatbotTelegram",
+    "call-center-AI",
+    "twilio-elevenlabs-integration"
+  ],
+  "features": [
+    "caller_memory",
+    "outcome_intelligence",
+    "transfer_routing_trees",
+    "missed_call_recovery",
+    "calendar_federation",
+    "sip_bridge",
+    "provider_failover",
+    "voice_personas",
+    "full_duplex_helpers",
+    "builder_ui_preserved"
+  ]
+}

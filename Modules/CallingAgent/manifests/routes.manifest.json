@@ -1,0 +1,11 @@
+{
+  "module": "CallingAgent",
+  "manifest": "routes",
+  "version": "1.0.0",
+  "items": [],
+  "file_count": 356,
+  "pass12": {
+    "builder_ui_preserved": true,
+    "intelligence_layer_added": true
+  }
+}

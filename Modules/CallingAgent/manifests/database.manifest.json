@@ -1,0 +1,10 @@
+{
+  "module": "CallingAgent",
+  "manifest": "database",
+  "version": "1.0.0",
+  "items": [],
+  "pass12": {
+    "builder_ui_preserved": true,
+    "intelligence_layer_added": true
+  }
+}
