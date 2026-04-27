@@ -1,7 +1,11 @@
 @extends('calling-agent::layouts.builder')
 
 @section('content')
-<div class="calling-agent-builder" data-calling-agent-builder data-builder-save-url="{{ route('calling-agent.builder.save', ['agent' => '__AGENT_ID__']) }}" data-builder-load-url="{{ route('calling-agent.builder.load', ['agent' => '__AGENT_ID__']) }}" data-builder-assign-url="{{ route('calling-agent.builder.assign-number', ['agent' => '__AGENT_ID__']) }}">
+<div class="calling-agent-builder" data-calling-agent-builder
+    data-builder-save-url="{{ route('calling-agent.builder.save', ['agent' => '__AGENT_ID__']) }}"
+    data-builder-load-url="{{ route('calling-agent.builder.load', ['agent' => '__AGENT_ID__']) }}"
+    data-builder-assign-url="{{ route('calling-agent.builder.assign-number', ['agent' => '__AGENT_ID__']) }}"
+    data-builder-voice-incoming-url="{{ route('calling-agent.webhooks.voice.incoming') }}">
 
     {{-- Agent selector bar --}}
     <div class="calling-agent-builder__agent-bar" style="background:#f8fafc;border-bottom:1px solid #e2e8f0;padding:0.75rem 1.5rem;display:flex;align-items:center;gap:1rem;">

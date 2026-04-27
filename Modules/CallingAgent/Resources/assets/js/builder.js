@@ -220,6 +220,10 @@
       const to = prompt('Enter phone number to call (E.164 format, e.g. +15005550006):');
       if (!to) return;
       setStatus('Placing test call…');
+      // Use the data attribute from the blade template to derive the incoming webhook URL
+      // so the path is never hardcoded here.
+      const incomingWebhookUrl = root.dataset.builderVoiceIncomingUrl
+        || (new URL(root.dataset.builderSaveUrl || window.location.href).origin + '/calling-agent/webhooks/twilio/voice/incoming');
       fetch('/api/calling-agent/calls/outbound', {
         method: 'POST',
         headers: {
@@ -228,12 +232,7 @@
           'X-CSRF-TOKEN': getCSRFToken(),
         },
         credentials: 'same-origin',
-        body: JSON.stringify({
-          to,
-          twiml_url: root.dataset.builderSaveUrl
-            ? new URL(root.dataset.builderSaveUrl).origin + '/calling-agent/webhooks/twilio/voice/incoming'
-            : window.location.origin + '/calling-agent/webhooks/twilio/voice/incoming',
-        }),
+        body: JSON.stringify({ to, twiml_url: incomingWebhookUrl }),
       })
         .then((r) => r.json())
         .then((resp) => {

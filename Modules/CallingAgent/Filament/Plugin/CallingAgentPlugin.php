@@ -7,14 +7,16 @@ use Modules\CallingAgent\Providers\FilamentServiceProvider;
 /**
  * Filament plugin for CallingAgent.
  *
- * Register it in your panel provider:
+ * Register it in your panel provider (Filament v3):
  *
  *   $panel->plugins([
  *       \Modules\CallingAgent\Filament\Plugin\CallingAgentPlugin::make(),
  *   ])
  *
- * This works with both Filament v2 and v3. In v3 the class can optionally
- * implement \Filament\Panel\Contracts\Plugin; in v2 it is just a plain object.
+ * The register() and boot() methods use \Filament\Panel type-hints which are
+ * only available in Filament v3. If you are on Filament v2, simply call
+ * FilamentServiceProvider::resources() to retrieve the resource class list
+ * and pass it to $panel->resources() yourself.
  */
 class CallingAgentPlugin
 {
@@ -31,6 +33,8 @@ class CallingAgentPlugin
     /**
      * Called by Filament v3 when the plugin is registered with a panel.
      * Registers all module resources with the panel.
+     *
+     * Requires Filament v3 (\Filament\Panel must exist).
      */
     public function register(\Filament\Panel $panel): void
     {
@@ -39,6 +43,8 @@ class CallingAgentPlugin
 
     /**
      * Called by Filament v3 after the panel has booted.
+     *
+     * Requires Filament v3 (\Filament\Panel must exist).
      */
     public function boot(\Filament\Panel $panel): void
     {

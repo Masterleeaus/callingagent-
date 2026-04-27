@@ -22,30 +22,32 @@ return new class extends Migration {
 
         // calling_agent_call_outcomes was first created by migration 000003 with a
         // minimal schema. Here we ALTER it to add the richer intelligence columns.
-        // We use hasColumn guards so this is safe on both fresh and existing installs.
-        Schema::table('calling_agent_call_outcomes', function (Blueprint $table) {
-            if (!Schema::hasColumn('calling_agent_call_outcomes', 'urgency')) {
-                $table->string('urgency')->default('normal')->index()->after('intent');
-            }
-            if (!Schema::hasColumn('calling_agent_call_outcomes', 'lead_quality')) {
-                $table->string('lead_quality')->default('unknown')->index()->after('urgency');
-            }
-            if (!Schema::hasColumn('calling_agent_call_outcomes', 'handoff_required')) {
-                $table->boolean('handoff_required')->default(false)->after('lead_quality');
-            }
-            if (!Schema::hasColumn('calling_agent_call_outcomes', 'booking_requested')) {
-                $table->boolean('booking_requested')->default(false)->after('handoff_required');
-            }
-            if (!Schema::hasColumn('calling_agent_call_outcomes', 'entities')) {
-                $table->json('entities')->nullable()->after('sentiment');
-            }
-            if (!Schema::hasColumn('calling_agent_call_outcomes', 'next_actions')) {
-                $table->json('next_actions')->nullable()->after('entities');
-            }
-            if (!Schema::hasColumn('calling_agent_call_outcomes', 'raw')) {
-                $table->json('raw')->nullable()->after('summary');
-            }
-        });
+        // We use hasTable + hasColumn guards so this is safe regardless of run order.
+        if (Schema::hasTable('calling_agent_call_outcomes')) {
+            Schema::table('calling_agent_call_outcomes', function (Blueprint $table) {
+                if (!Schema::hasColumn('calling_agent_call_outcomes', 'urgency')) {
+                    $table->string('urgency')->default('normal')->index()->after('intent');
+                }
+                if (!Schema::hasColumn('calling_agent_call_outcomes', 'lead_quality')) {
+                    $table->string('lead_quality')->default('unknown')->index()->after('urgency');
+                }
+                if (!Schema::hasColumn('calling_agent_call_outcomes', 'handoff_required')) {
+                    $table->boolean('handoff_required')->default(false)->after('lead_quality');
+                }
+                if (!Schema::hasColumn('calling_agent_call_outcomes', 'booking_requested')) {
+                    $table->boolean('booking_requested')->default(false)->after('handoff_required');
+                }
+                if (!Schema::hasColumn('calling_agent_call_outcomes', 'entities')) {
+                    $table->json('entities')->nullable()->after('sentiment');
+                }
+                if (!Schema::hasColumn('calling_agent_call_outcomes', 'next_actions')) {
+                    $table->json('next_actions')->nullable()->after('entities');
+                }
+                if (!Schema::hasColumn('calling_agent_call_outcomes', 'raw')) {
+                    $table->json('raw')->nullable()->after('summary');
+                }
+            });
+        }
 
         Schema::create('calling_agent_builder_presets', function (Blueprint $table) {
             $table->id();
