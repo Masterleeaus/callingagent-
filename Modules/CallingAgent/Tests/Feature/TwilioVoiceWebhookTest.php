@@ -27,7 +27,7 @@ class TwilioVoiceWebhookTest extends TestCase
     public function test_incoming_webhook_returns_twiml(): void
     {
         config(['calling-agent.config.enabled' => true]);
-        config(['CALLING_AGENT_SKIP_TWILIO_VALIDATION' => true]);
+        config(['calling-agent.skip_twilio_validation' => true]);
 
         $params = [
             'CallSid'    => 'CA' . str_repeat('0', 32),
@@ -58,7 +58,7 @@ class TwilioVoiceWebhookTest extends TestCase
 
     public function test_gather_webhook_stores_transcript_and_returns_twiml(): void
     {
-        config(['CALLING_AGENT_SKIP_TWILIO_VALIDATION' => true]);
+        config(['calling-agent.skip_twilio_validation' => true]);
 
         $callSid = 'CA' . str_repeat('1', 32);
         $params = [
@@ -88,7 +88,7 @@ class TwilioVoiceWebhookTest extends TestCase
 
     public function test_status_callback_updates_call(): void
     {
-        config(['CALLING_AGENT_SKIP_TWILIO_VALIDATION' => true]);
+        config(['calling-agent.skip_twilio_validation' => true]);
 
         $callSid = 'CA' . str_repeat('2', 32);
         $params = [

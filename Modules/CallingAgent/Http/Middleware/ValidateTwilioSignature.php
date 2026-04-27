@@ -10,7 +10,7 @@ class ValidateTwilioSignature
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (env('CALLING_AGENT_SKIP_TWILIO_VALIDATION', false)) {
+        if (config('calling-agent.skip_twilio_validation', env('CALLING_AGENT_SKIP_TWILIO_VALIDATION', false))) {
             return $next($request);
         }
 
