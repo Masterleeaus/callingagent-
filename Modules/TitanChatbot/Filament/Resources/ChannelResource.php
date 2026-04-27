@@ -2,20 +2,26 @@
 
 namespace Modules\TitanChatbot\Filament\Resources;
 
-use Modules\TitanChatbot\Models\Chatbot;
-
 if (class_exists(\Filament\Resources\Resource::class)) {
-    class ChatbotResource extends \Filament\Resources\Resource
+    class ChannelResource extends \Filament\Resources\Resource
     {
-        protected static ?string $model = Chatbot::class;
+        protected static ?string $model = null;
 
-        protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
+        protected static ?string $navigationIcon = 'heroicon-o-signal';
 
-        protected static ?string $navigationLabel = 'Chatbots';
+        protected static ?string $navigationLabel = 'Channels';
+
+        protected static ?string $slug = 'channels';
 
         public static function getModelLabel(): string
         {
-            return 'Chatbot';
+            return 'Channel';
+        }
+
+        public static function getModel(): string
+        {
+            return \Modules\TitanChatbot\Models\ChatbotChannel::class
+                ?? \Illuminate\Database\Eloquent\Model::class;
         }
 
         public static function form(\Filament\Forms\Form $form): \Filament\Forms\Form
@@ -24,9 +30,15 @@ if (class_exists(\Filament\Resources\Resource::class)) {
                 \Filament\Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                \Filament\Forms\Components\TextInput::make('model')
-                    ->required()
-                    ->maxLength(255),
+                \Filament\Forms\Components\Select::make('type')
+                    ->options([
+                        'webchat'   => 'Webchat',
+                        'whatsapp'  => 'WhatsApp',
+                        'telegram'  => 'Telegram',
+                        'messenger' => 'Messenger',
+                        'voice'     => 'Voice',
+                    ])
+                    ->required(),
                 \Filament\Forms\Components\Toggle::make('is_active')
                     ->default(true),
             ]);
@@ -39,7 +51,8 @@ if (class_exists(\Filament\Resources\Resource::class)) {
                     \Filament\Tables\Columns\TextColumn::make('name')
                         ->searchable()
                         ->sortable(),
-                    \Filament\Tables\Columns\TextColumn::make('model')
+                    \Filament\Tables\Columns\TextColumn::make('type')
+                        ->badge()
                         ->searchable(),
                     \Filament\Tables\Columns\IconColumn::make('is_active')
                         ->boolean(),
@@ -53,18 +66,18 @@ if (class_exists(\Filament\Resources\Resource::class)) {
         public static function getPages(): array
         {
             return [
-                'index'  => \Modules\TitanChatbot\Filament\Resources\ChatbotResource\Pages\ListChatbots::route('/'),
-                'create' => \Modules\TitanChatbot\Filament\Resources\ChatbotResource\Pages\CreateChatbot::route('/create'),
-                'edit'   => \Modules\TitanChatbot\Filament\Resources\ChatbotResource\Pages\EditChatbot::route('/{record}/edit'),
+                'index'  => \Modules\TitanChatbot\Filament\Resources\ChannelResource\Pages\ListChannels::route('/'),
+                'create' => \Modules\TitanChatbot\Filament\Resources\ChannelResource\Pages\CreateChannel::route('/create'),
+                'edit'   => \Modules\TitanChatbot\Filament\Resources\ChannelResource\Pages\EditChannel::route('/{record}/edit'),
             ];
         }
     }
 } else {
-    class ChatbotResource
+    class ChannelResource
     {
         public static function getModelLabel(): string
         {
-            return 'Chatbot';
+            return 'Channel';
         }
     }
 }

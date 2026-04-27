@@ -2,31 +2,37 @@
 
 namespace Modules\TitanChatbot\Filament\Resources;
 
-use Modules\TitanChatbot\Models\Chatbot;
-
 if (class_exists(\Filament\Resources\Resource::class)) {
-    class ChatbotResource extends \Filament\Resources\Resource
+    class KnowledgeResource extends \Filament\Resources\Resource
     {
-        protected static ?string $model = Chatbot::class;
+        protected static ?string $model = null;
 
-        protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
+        protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
-        protected static ?string $navigationLabel = 'Chatbots';
+        protected static ?string $navigationLabel = 'Knowledge Base';
+
+        protected static ?string $slug = 'knowledge';
 
         public static function getModelLabel(): string
         {
-            return 'Chatbot';
+            return 'Knowledge Article';
+        }
+
+        public static function getModel(): string
+        {
+            return \Modules\TitanChatbot\Models\KnowledgeArticle::class
+                ?? \Illuminate\Database\Eloquent\Model::class;
         }
 
         public static function form(\Filament\Forms\Form $form): \Filament\Forms\Form
         {
             return $form->schema([
-                \Filament\Forms\Components\TextInput::make('name')
+                \Filament\Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                \Filament\Forms\Components\TextInput::make('model')
+                \Filament\Forms\Components\Textarea::make('content')
                     ->required()
-                    ->maxLength(255),
+                    ->rows(10),
                 \Filament\Forms\Components\Toggle::make('is_active')
                     ->default(true),
             ]);
@@ -36,35 +42,34 @@ if (class_exists(\Filament\Resources\Resource::class)) {
         {
             return $table
                 ->columns([
-                    \Filament\Tables\Columns\TextColumn::make('name')
+                    \Filament\Tables\Columns\TextColumn::make('title')
                         ->searchable()
                         ->sortable(),
-                    \Filament\Tables\Columns\TextColumn::make('model')
-                        ->searchable(),
                     \Filament\Tables\Columns\IconColumn::make('is_active')
                         ->boolean(),
                     \Filament\Tables\Columns\TextColumn::make('created_at')
                         ->dateTime()
                         ->sortable(),
                 ])
+                ->defaultSort('created_at', 'desc')
                 ->filters([]);
         }
 
         public static function getPages(): array
         {
             return [
-                'index'  => \Modules\TitanChatbot\Filament\Resources\ChatbotResource\Pages\ListChatbots::route('/'),
-                'create' => \Modules\TitanChatbot\Filament\Resources\ChatbotResource\Pages\CreateChatbot::route('/create'),
-                'edit'   => \Modules\TitanChatbot\Filament\Resources\ChatbotResource\Pages\EditChatbot::route('/{record}/edit'),
+                'index'  => \Modules\TitanChatbot\Filament\Resources\KnowledgeResource\Pages\ListKnowledge::route('/'),
+                'create' => \Modules\TitanChatbot\Filament\Resources\KnowledgeResource\Pages\CreateKnowledge::route('/create'),
+                'edit'   => \Modules\TitanChatbot\Filament\Resources\KnowledgeResource\Pages\EditKnowledge::route('/{record}/edit'),
             ];
         }
     }
 } else {
-    class ChatbotResource
+    class KnowledgeResource
     {
         public static function getModelLabel(): string
         {
-            return 'Chatbot';
+            return 'Knowledge Article';
         }
     }
 }
