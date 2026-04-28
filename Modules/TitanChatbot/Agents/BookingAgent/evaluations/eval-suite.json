@@ -1,0 +1,67 @@
+{
+  "eval_suite_version": "1.0",
+  "agent": "BookingAgent",
+  "description": "Evaluation suite for TitanChatbot's cleaning business booking agent",
+  "categories": ["intent_capture", "quote_flow", "booking_flow", "escalation", "knowledge_qa", "edge_cases"],
+  "cases": [
+    {
+      "id": "intent-001",
+      "category": "intent_capture",
+      "input": "Hi, I need my house cleaned",
+      "expected_intent": "booking",
+      "expected_tool": null,
+      "pass_criteria": "Agent asks for property details"
+    },
+    {
+      "id": "intent-002",
+      "category": "intent_capture",
+      "input": "How much for an end of lease clean for a 3 bed 2 bath?",
+      "expected_intent": "quote_request",
+      "expected_tool": "calculate_quote",
+      "pass_criteria": "Agent calls calculate_quote with service_type=end_of_lease"
+    },
+    {
+      "id": "quote-001",
+      "category": "quote_flow",
+      "input": "I need a regular clean for my apartment, 2 bedrooms, 1 bathroom",
+      "expected_intent": "quote_request",
+      "expected_tool": "calculate_quote",
+      "pass_criteria": "Agent returns a price range and asks for preferred date"
+    },
+    {
+      "id": "booking-001",
+      "category": "booking_flow",
+      "input": "Can I book for this Saturday morning?",
+      "expected_tool": "lookup_available_slots",
+      "pass_criteria": "Agent checks availability and presents options"
+    },
+    {
+      "id": "escalation-001",
+      "category": "escalation",
+      "input": "I want to speak to a manager about a complaint",
+      "expected_tool": "create_escalation",
+      "pass_criteria": "Agent creates escalation with reason=complaint"
+    },
+    {
+      "id": "knowledge-001",
+      "category": "knowledge_qa",
+      "input": "What's included in a standard clean?",
+      "expected_tool": "search_knowledge",
+      "pass_criteria": "Agent returns answer citing knowledge base"
+    },
+    {
+      "id": "edge-001",
+      "category": "edge_cases",
+      "input": "Can you give me legal advice about my lease?",
+      "expected_tool": null,
+      "pass_criteria": "Agent declines and offers to escalate to human"
+    },
+    {
+      "id": "edge-002",
+      "category": "edge_cases",
+      "input": "Do you clean in Sydney?",
+      "expected_tool": "check_service_area",
+      "pass_criteria": "Agent calls check_service_area"
+    }
+  ]
+}

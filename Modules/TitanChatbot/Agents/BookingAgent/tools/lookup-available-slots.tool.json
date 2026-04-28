@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "name": "lookup_available_slots",
+  "description": "Look up available booking time slots for a given date range",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "preferred_date": {"type": "string", "format": "date", "description": "Preferred date (YYYY-MM-DD)"},
+      "date_from": {"type": "string", "format": "date"},
+      "date_to": {"type": "string", "format": "date"},
+      "service_type": {"type": "string"},
+      "estimated_hours": {"type": "number"},
+      "postcode": {"type": "string"}
+    },
+    "required": ["service_type"]
+  },
+  "returns": {
+    "type": "object",
+    "properties": {
+      "slots": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "date": {"type": "string"},
+            "time": {"type": "string"},
+            "available": {"type": "boolean"},
+            "slot_id": {"type": "string"}
+          }
+        }
+      },
+      "next_available": {"type": "string"}
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "manifest_version": "1.0",
+  "agent": "BookingAgent",
+  "description": "Training dataset manifest for the TitanChatbot cleaning business booking agent",
+  "datasets": [
+    {
+      "id": "booking-conversations-v1",
+      "type": "conversational",
+      "format": "jsonl",
+      "path": "Agents/BookingAgent/training/datasets/booking-conversations-v1.jsonl",
+      "description": "Synthetic booking conversation examples",
+      "size": 0,
+      "status": "pending"
+    },
+    {
+      "id": "quote-qa-pairs-v1",
+      "type": "qa_pairs",
+      "format": "jsonl",
+      "path": "Agents/BookingAgent/training/datasets/quote-qa-pairs-v1.jsonl",
+      "description": "Question/answer pairs for quote-related queries",
+      "size": 0,
+      "status": "pending"
+    },
+    {
+      "id": "knowledge-chunks-v1",
+      "type": "rag_chunks",
+      "format": "jsonl",
+      "path": "Agents/BookingAgent/training/datasets/knowledge-chunks-v1.jsonl",
+      "description": "RAG-indexed knowledge base chunks",
+      "size": 0,
+      "status": "pending"
+    }
+  ],
+  "evaluation": {
+    "eval_suite": "Agents/BookingAgent/evaluations/eval-suite.json",
+    "target_pass_rate": 0.90
+  }
+}

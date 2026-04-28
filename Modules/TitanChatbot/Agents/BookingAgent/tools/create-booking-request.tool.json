@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "name": "create_booking_request",
+  "description": "Create a new booking request after customer has confirmed quote and slot",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "customer_name": {"type": "string"},
+      "contact_number": {"type": "string"},
+      "email": {"type": "string", "format": "email"},
+      "service_address": {"type": "string"},
+      "suburb": {"type": "string"},
+      "postcode": {"type": "string"},
+      "service_type": {"type": "string"},
+      "slot_id": {"type": "string"},
+      "preferred_date": {"type": "string", "format": "date"},
+      "preferred_time": {"type": "string"},
+      "extras": {"type": "array", "items": {"type": "string"}},
+      "notes": {"type": "string"},
+      "quoted_price": {"type": "number"},
+      "session_id": {"type": "string"}
+    },
+    "required": ["customer_name", "service_type", "preferred_date"]
+  },
+  "returns": {
+    "type": "object",
+    "properties": {
+      "booking_id": {"type": "string"},
+      "status": {"type": "string", "enum": ["confirmed", "pending", "failed"]},
+      "confirmation_number": {"type": "string"},
+      "confirmation_message": {"type": "string"}
+    }
+  }
+}

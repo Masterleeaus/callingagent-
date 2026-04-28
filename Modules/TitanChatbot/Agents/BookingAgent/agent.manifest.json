@@ -1,0 +1,30 @@
+{
+  "manifest_version": "1.0",
+  "agent_id": "booking-agent",
+  "name": "TitanChatbot Booking Agent",
+  "description": "AI-native cleaning business booking agent embedded in TitanChatbot module",
+  "version": "1.0.0",
+  "agent_class": "Modules\\TitanChatbot\\AI\\Agents\\BookingAgent",
+  "capabilities": ["quote_capture", "booking_flow", "knowledge_qa", "escalation", "channel_aware"],
+  "channels": ["webchat", "whatsapp", "telegram", "messenger", "voice"],
+  "tools": [
+    {"name": "calculate_quote", "schema": "Agents/BookingAgent/tools/calculate-quote.tool.json"},
+    {"name": "check_service_area", "schema": "Agents/BookingAgent/tools/check-service-area.tool.json"},
+    {"name": "lookup_available_slots", "schema": "Agents/BookingAgent/tools/lookup-available-slots.tool.json"},
+    {"name": "create_booking_request", "schema": "Agents/BookingAgent/tools/create-booking-request.tool.json"},
+    {"name": "lookup_customer", "schema": "Agents/BookingAgent/tools/lookup-customer.tool.json"},
+    {"name": "create_escalation", "schema": "Agents/BookingAgent/tools/create-escalation.tool.json"},
+    {"name": "search_knowledge", "schema": "Agents/BookingAgent/tools/search-knowledge.tool.json"}
+  ],
+  "prompts": {
+    "system": "Agents/BookingAgent/prompts/system.md",
+    "answering": "Agents/BookingAgent/prompts/answering.md",
+    "tool_use": "Agents/BookingAgent/prompts/tool-use.md"
+  },
+  "knowledge_pack": "Knowledge/",
+  "training": {
+    "dataset_manifest": "Agents/BookingAgent/training/dataset-manifest.json",
+    "eval_suite": "Agents/BookingAgent/evaluations/eval-suite.json"
+  },
+  "policy": "Agents/BookingAgent/policies/agent-policy.md"
+}

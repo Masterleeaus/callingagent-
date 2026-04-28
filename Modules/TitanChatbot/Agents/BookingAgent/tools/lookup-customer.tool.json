@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "name": "lookup_customer",
+  "description": "Look up an existing customer by phone number or email",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "phone": {"type": "string"},
+      "email": {"type": "string", "format": "email"},
+      "name": {"type": "string"}
+    },
+    "required": []
+  },
+  "returns": {
+    "type": "object",
+    "properties": {
+      "found": {"type": "boolean"},
+      "customer_id": {"type": "string"},
+      "name": {"type": "string"},
+      "previous_bookings": {"type": "integer"},
+      "preferred_service": {"type": "string"},
+      "notes": {"type": "string"}
+    }
+  }
+}
