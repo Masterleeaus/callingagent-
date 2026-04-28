@@ -1,9 +1,12 @@
 <?php
+
 namespace Modules\CallingAgent\Filament\Pages;
 
 class CallingAgentBuilderPage
 {
-    public static function navigationLabel(): string { return 'Calling Agent Builder'; }
+    public static string $view = 'calling-agent::builder.index';
+
+    public static function navigationLabel(): string { return 'Agent Builder'; }
     public static function route(): string { return '/calling-agent/builder'; }
 
     public function schema(): array

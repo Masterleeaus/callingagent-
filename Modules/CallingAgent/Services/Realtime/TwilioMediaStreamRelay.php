@@ -6,11 +6,11 @@ final class TwilioMediaStreamRelay
     public function normalize(array $event): array
     {
         return [
-            'event' => $event['event'] ?? null,
+            'event'      => $event['event'] ?? null,
             'stream_sid' => $event['streamSid'] ?? $event['stream_sid'] ?? null,
-            'sequence' => $event['sequenceNumber'] ?? $event['sequence'] ?? null,
-            'payload' => $event['media']['payload'] ?? null,
-            'raw' => $event,
+            'sequence'   => $event['sequenceNumber'] ?? $event['sequence'] ?? null,
+            'payload'    => $event['media']['payload'] ?? null,
+            'raw'        => $event,
         ];
     }
 
