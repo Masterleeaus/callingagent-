@@ -2,10 +2,10 @@
 
 namespace Modules\TitanChatbot\AI\Agents;
 
-use Modules\TitanChatbot\AI\Memory\ConversationMemoryStore;
-use Modules\TitanChatbot\Services\GeneratorBridge;
-use Throwable;
-
+/**
+ * Voice-optimised agent — extends TitanAgent via ConversationAgent.
+ * Post-processes the reply for TTS output after delegating to parent::respond().
+ */
 class VoiceAgent extends ConversationAgent
 {
     public string $system_prompt = 'You are a voice assistant. Respond with short, clear sentences only. No bullet points, no markdown, no numbered lists. Every response must be speakable and under 30 words when possible.';
@@ -17,29 +17,9 @@ class VoiceAgent extends ConversationAgent
 
     public function respond(string $utterance, array $context = []): string
     {
-        $sessionId = $context['session_id'] ?? 'default';
-        $memory    = app(ConversationMemoryStore::class);
+        $reply = parent::respond($utterance, $context);
 
-        $history = $memory->recall($sessionId);
-
-        $builtContext = array_merge(
-            [['role' => 'system', 'content' => $context['system'] ?? $this->system_prompt]],
-            $history,
-        );
-
-        try {
-            $reply = app(GeneratorBridge::class)->generate($utterance, $builtContext);
-        } catch (Throwable $e) {
-            report($e);
-            $reply = $this->ruleBasedFallback($utterance);
-        }
-
-        $reply = $this->sanitiseForTts($reply);
-
-        $memory->remember($sessionId, 'user', $utterance);
-        $memory->remember($sessionId, 'assistant', $reply);
-
-        return $reply;
+        return $this->sanitiseForTts($reply);
     }
 
     public function getStreamingHook(): ?callable

@@ -6,6 +6,10 @@ use Modules\TitanChatbot\AI\Memory\ConversationMemoryStore;
 use Modules\TitanChatbot\Services\GeneratorBridge;
 use Throwable;
 
+/**
+ * Booking-specific agent — extends TitanAgent via ConversationAgent.
+ * Adds structured booking-detail extraction on top of the base conversation flow.
+ */
 class BookingAgent extends ConversationAgent
 {
     public string $system_prompt = 'You are a booking assistant. Collect the customer\'s name, preferred appointment date, time, and contact number. Confirm details before finalising. Be concise and friendly.';

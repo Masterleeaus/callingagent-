@@ -2,46 +2,27 @@
 
 namespace Modules\TitanChatbot\AI\Agents;
 
-use Modules\TitanChatbot\AI\Memory\ConversationMemoryStore;
-use Modules\TitanChatbot\Services\GeneratorBridge;
-use Throwable;
+use Modules\TitanChatbot\AI\Core\TitanAgent;
 
-class ConversationAgent
+class ConversationAgent extends TitanAgent
 {
+    protected string $instructions = 'You are a helpful conversational assistant.';
+
+    // Legacy public properties kept for backward compatibility
     public string $system_prompt = 'You are a helpful conversational assistant.';
-
     public array $toolset = [];
-
     public string $memory_policy = 'session';
-
     public string $escalation_strategy = 'none';
 
-    public function respond(string $message, array $context = []): string
+    /**
+     * Use legacy $system_prompt when set, otherwise fall back to $instructions.
+     */
+    public function instructions(): string
     {
-        $sessionId = $context['session_id'] ?? 'default';
-        $memory    = app(ConversationMemoryStore::class);
-
-        $history = $memory->recall($sessionId);
-
-        $builtContext = array_merge(
-            [['role' => 'system', 'content' => $context['system'] ?? $this->system_prompt]],
-            $history,
-        );
-
-        try {
-            $reply = app(GeneratorBridge::class)->generate($message, $builtContext);
-        } catch (Throwable $e) {
-            report($e);
-            $reply = $this->ruleBasedFallback($message);
-        }
-
-        $memory->remember($sessionId, 'user', $message);
-        $memory->remember($sessionId, 'assistant', $reply);
-
-        return $reply;
+        return $this->system_prompt ?: $this->instructions;
     }
 
-    protected function ruleBasedFallback(string $message): string
+    protected function fallback(string $message): string
     {
         $m = strtolower($message);
 
@@ -54,5 +35,13 @@ class ConversationAgent
         }
 
         return 'I\'m here to help. Could you tell me more about what you need?';
+    }
+
+    /**
+     * Backward-compatible alias for fallback().
+     */
+    protected function ruleBasedFallback(string $message): string
+    {
+        return $this->fallback($message);
     }
 }

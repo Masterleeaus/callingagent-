@@ -2,6 +2,10 @@
 
 namespace Modules\TitanChatbot\AI\Agents;
 
+/**
+ * Support-escalation agent — extends TitanAgent via ConversationAgent.
+ * Adds intent-based escalation detection on top of the base conversation flow.
+ */
 class SupportAgent extends ConversationAgent
 {
     public string $system_prompt = 'You are a customer support specialist. Diagnose issues systematically, provide clear troubleshooting steps, and escalate complex or unresolved problems to a human agent. Be empathetic and solution-focused.';
