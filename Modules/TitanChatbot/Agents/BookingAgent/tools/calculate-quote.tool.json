@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "name": "calculate_quote",
+  "description": "Calculate a cleaning service quote based on property details",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "property_type": {
+        "type": "string",
+        "enum": ["house", "apartment", "commercial", "office"],
+        "description": "Type of property to be cleaned"
+      },
+      "bedrooms": {
+        "type": "integer",
+        "description": "Number of bedrooms (0 for commercial/studio)"
+      },
+      "bathrooms": {
+        "type": "integer",
+        "description": "Number of bathrooms"
+      },
+      "service_type": {
+        "type": "string",
+        "enum": ["regular", "deep_clean", "end_of_lease", "move_in", "commercial"],
+        "description": "Type of cleaning service required"
+      },
+      "area_sqm": {
+        "type": "number",
+        "description": "Total floor area in square meters (optional)"
+      },
+      "extras": {
+        "type": "array",
+        "items": {"type": "string", "enum": ["oven", "fridge", "windows", "carpet", "walls"]},
+        "description": "Additional services requested"
+      },
+      "condition": {
+        "type": "string",
+        "enum": ["light", "standard", "heavy"],
+        "description": "Current cleanliness condition of the property"
+      }
+    },
+    "required": ["property_type", "service_type"]
+  },
+  "returns": {
+    "type": "object",
+    "properties": {
+      "base_price": {"type": "number"},
+      "extras_price": {"type": "number"},
+      "total_price": {"type": "number"},
+      "estimated_hours": {"type": "number"},
+      "price_range": {"type": "string"},
+      "currency": {"type": "string"}
+    }
+  }
+}

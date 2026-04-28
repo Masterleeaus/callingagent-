@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/8.5/phpunit.xsd"
+         bootstrap="Tests/bootstrap.php"
+         colors="true">
+    <testsuites>
+        <testsuite name="TitanChatbot Unit">
+            <directory>Tests/Unit</directory>
+        </testsuite>
+        <testsuite name="TitanChatbot Feature">
+            <directory>Tests/Feature</directory>
+        </testsuite>
+        <testsuite name="TitanChatbot Integration">
+            <directory>Tests/Integration</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

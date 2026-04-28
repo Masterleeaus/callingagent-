@@ -1,0 +1,28 @@
+{
+  "module": "TitanChatbot",
+  "manifest": "billing",
+  "version": "2.0.0",
+  "enabled": true,
+  "meters": [
+    {
+      "class": "Modules\\TitanChatbot\\Billing\\Meters\\ConversationMeter",
+      "unit": "conversation",
+      "description": "Meters each chatbot conversation started"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Billing\\Meters\\VoiceSecondsMeter",
+      "unit": "seconds",
+      "description": "Meters voice session duration in seconds"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Billing\\Meters\\EmbeddingMeter",
+      "unit": "embedding",
+      "description": "Meters embedding generation requests for RAG training"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Billing\\Usage\\UsageTracker",
+      "unit": "tokens",
+      "description": "Tracks prompt/completion/total token usage per tenant, chatbot, and date"
+    }
+  ]
+}

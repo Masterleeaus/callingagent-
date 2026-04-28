@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "name": "check_service_area",
+  "description": "Check whether a suburb or postcode is within the serviceable area",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "suburb": {"type": "string", "description": "Suburb or city name"},
+      "postcode": {"type": "string", "description": "Postal/ZIP code"},
+      "state": {"type": "string", "description": "State or region code"}
+    },
+    "required": []
+  },
+  "returns": {
+    "type": "object",
+    "properties": {
+      "serviceable": {"type": "boolean"},
+      "zone": {"type": "string"},
+      "travel_surcharge": {"type": "number"},
+      "nearest_branch": {"type": "string"}
+    }
+  }
+}

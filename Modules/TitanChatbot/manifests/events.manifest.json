@@ -1,0 +1,65 @@
+{
+  "module": "TitanChatbot",
+  "manifest": "events",
+  "version": "2.0.0",
+  "enabled": true,
+  "events": [
+    {
+      "class": "Modules\\TitanChatbot\\Events\\ConversationStarted",
+      "description": "Fired when a new chatbot conversation is initiated",
+      "payload": ["payload: MessagePayload", "chatbot: mixed"]
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Events\\ConversationEscalated",
+      "description": "Fired when a conversation is escalated to a human agent",
+      "payload": ["conversationId: int", "chatbot: mixed", "conversation: mixed"]
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Events\\IntentDetected",
+      "description": "Fired when an intent is detected in a conversation",
+      "payload": ["intent: string", "confidence: float", "conversationId: int", "chatbot: mixed"]
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Events\\VoiceSessionStarted",
+      "description": "Fired when a voice session begins",
+      "payload": ["conversationId: int", "chatbot: mixed"]
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Events\\VoiceSessionDurationRecorded",
+      "description": "Fired when a voice session ends and duration is recorded",
+      "payload": ["sessionId: string", "durationSeconds: float", "messageCount: int"]
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Events\\MessageReceived",
+      "description": "Fired when a message is received in a conversation"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Events\\AI\\BeforeSend",
+      "description": "Fired before a message is sent to the AI engine"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Events\\AI\\AfterSend",
+      "description": "Fired after the AI engine returns a reply"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Events\\AI\\BeforeToolExecution",
+      "description": "Fired before an AI tool is executed"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Events\\AI\\AfterToolExecution",
+      "description": "Fired after an AI tool has been executed"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Events\\AI\\EngineError",
+      "description": "Fired when the AI engine throws an error"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Events\\AI\\MemorySaved",
+      "description": "Fired when a conversation turn is persisted to memory"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Events\\AI\\MemoryLoaded",
+      "description": "Fired when conversation history is loaded from memory"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "manifest_version": "1.0",
+  "module": "TitanChatbot",
+  "description": "Telemetry and observability manifest for TitanChatbot AI runtime",
+  "metrics": [
+    {
+      "name": "titan_chatbot_messages_total",
+      "type": "counter",
+      "description": "Total messages processed by the chatbot",
+      "labels": ["channel", "chatbot_id", "tenant_id", "intent"]
+    },
+    {
+      "name": "titan_chatbot_tokens_total",
+      "type": "counter",
+      "description": "Total tokens used (prompt + completion)",
+      "labels": ["provider", "model", "chatbot_id", "tenant_id"]
+    },
+    {
+      "name": "titan_chatbot_tool_calls_total",
+      "type": "counter",
+      "description": "Total tool calls made by agents",
+      "labels": ["tool_name", "chatbot_id", "success"]
+    },
+    {
+      "name": "titan_chatbot_escalations_total",
+      "type": "counter",
+      "description": "Total escalations triggered",
+      "labels": ["reason", "channel", "tenant_id"]
+    },
+    {
+      "name": "titan_chatbot_response_latency_ms",
+      "type": "histogram",
+      "description": "Time to first token / response latency in milliseconds",
+      "labels": ["provider", "channel"],
+      "buckets": [100, 250, 500, 1000, 2000, 5000]
+    },
+    {
+      "name": "titan_chatbot_rag_retrieval_latency_ms",
+      "type": "histogram",
+      "description": "RAG retrieval latency in milliseconds",
+      "labels": ["category"],
+      "buckets": [10, 50, 100, 250, 500]
+    },
+    {
+      "name": "titan_chatbot_bookings_created_total",
+      "type": "counter",
+      "description": "Bookings successfully created via AI agent",
+      "labels": ["service_type", "tenant_id"]
+    }
+  ],
+  "traces": {
+    "enabled": true,
+    "sampler": "always_on",
+    "spans": ["message_processing", "tool_execution", "rag_retrieval", "llm_generation"]
+  },
+  "logs": {
+    "level": "info",
+    "include_session_id": true,
+    "include_tenant_id": true,
+    "mask_pii": true
+  }
+}

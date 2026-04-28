@@ -1,0 +1,16 @@
+{
+  "module": "TitanChatbot",
+  "pass": 4,
+  "generated_at": "2026-04-28",
+  "source_base": "TitanChatbot_Module_Merged_Pass03.zip",
+  "blueprints_applied": [
+    "05-MODULE-BLUEPRINT",
+    "28-CANONICAL-MODULE-STARTER-PACK",
+    "17-MANIFESTS-CONTRACTS-BLUEPRINT",
+    "module-structure",
+    "module-plugin-blueprint"
+  ],
+  "builder_ui_preserved": true,
+  "file_count": 1270,
+  "directory_count": 597
+}

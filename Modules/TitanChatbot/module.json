@@ -1,0 +1,20 @@
+{
+  "name": "TitanChatbot",
+  "alias": "titan-chatbot",
+  "description": "Unified multi-channel AI chatbot, voice, live-agent and PWA-ready module assembled from uploaded TitanBot and chatbot codebases.",
+  "keywords": [
+    "chatbot",
+    "ai",
+    "rag",
+    "voice",
+    "whatsapp",
+    "telegram",
+    "messenger",
+    "pwa",
+    "live-agent"
+  ],
+  "priority": 10,
+  "providers": [
+    "Modules\\TitanChatbot\\Providers\\ModuleServiceProvider"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "module": "TitanChatbot",
+  "manifest": "routes",
+  "version": "2.0.0",
+  "enabled": true,
+  "web": [
+    "/titan-chatbot",
+    "/titan-chatbot/channels",
+    "/titan-chatbot/voice",
+    "/titan-chatbot/agent"
+  ],
+  "api": [
+    "/api/titan-chatbot/health",
+    "/api/chatbots/{id}/message",
+    "/api/chatbots/{id}/voice",
+    "/api/chatbots/{id}/history",
+    "/api/chatbots/{id}/train"
+  ],
+  "webhook_routes": [
+    "POST webhooks/titan-chatbot/whatsapp/{channelId}",
+    "POST webhooks/titan-chatbot/telegram/{channelId}",
+    "GET  webhooks/titan-chatbot/telegram/{channelId}/verify",
+    "GET  webhooks/titan-chatbot/messenger/{channelId}",
+    "POST webhooks/titan-chatbot/messenger/{channelId}"
+  ]
+}

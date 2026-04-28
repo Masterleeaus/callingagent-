@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "name": "search_knowledge",
+  "description": "Search the knowledge base for answers to customer questions",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "query": {"type": "string", "description": "The customer question or search query"},
+      "category": {"type": "string", "enum": ["pricing", "services", "policies", "faqs", "compliance", "all"], "description": "Optional category filter"},
+      "max_results": {"type": "integer", "default": 3}
+    },
+    "required": ["query"]
+  },
+  "returns": {
+    "type": "object",
+    "properties": {
+      "results": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "content": {"type": "string"},
+            "source": {"type": "string"},
+            "confidence": {"type": "number"},
+            "category": {"type": "string"}
+          }
+        }
+      },
+      "found": {"type": "boolean"}
+    }
+  }
+}
