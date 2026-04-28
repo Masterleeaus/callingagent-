@@ -1,0 +1,32 @@
+{
+  "policy_version": "1.0",
+  "module": "TitanChatbot",
+  "description": "RAG retrieval policy for TitanChatbot knowledge pack",
+  "retrieval": {
+    "strategy": "semantic_similarity",
+    "top_k": 5,
+    "min_similarity_threshold": 0.60,
+    "reranking": {
+      "enabled": true,
+      "strategy": "cross_encoder",
+      "top_k_after_rerank": 3
+    },
+    "context_window": {
+      "max_context_tokens": 2048,
+      "preserve_system_prompt": true,
+      "chunk_separator": "\n\n---\n\n"
+    },
+    "category_boost": {
+      "faqs": 1.2,
+      "pricing": 1.15,
+      "guides": 1.0,
+      "policies": 0.9,
+      "compliance": 0.8
+    },
+    "fallback": {
+      "no_results_action": "escalate_or_fallback_message",
+      "low_confidence_action": "answer_with_disclaimer",
+      "fallback_message": "I don't have a specific answer for that. Let me connect you with our team."
+    }
+  }
+}

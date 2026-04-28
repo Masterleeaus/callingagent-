@@ -1,0 +1,63 @@
+{
+  "manifest_version": "1.0",
+  "module": "TitanChatbot",
+  "indexing": {
+    "strategy": "chunked_embedding",
+    "chunk_size": 512,
+    "chunk_overlap": 80,
+    "embedding_model": "text-embedding-3-small",
+    "index_targets": [
+      {
+        "path": "Knowledge/guides/",
+        "recursive": true,
+        "file_types": ["md", "txt"],
+        "category": "guides",
+        "priority": "high"
+      },
+      {
+        "path": "Knowledge/faqs/",
+        "recursive": true,
+        "file_types": ["md"],
+        "category": "faqs",
+        "priority": "high"
+      },
+      {
+        "path": "Knowledge/pricing/",
+        "recursive": true,
+        "file_types": ["md"],
+        "category": "pricing",
+        "priority": "high"
+      },
+      {
+        "path": "Knowledge/policies/",
+        "recursive": true,
+        "file_types": ["md"],
+        "category": "policies",
+        "priority": "medium"
+      },
+      {
+        "path": "Knowledge/sops/",
+        "recursive": true,
+        "file_types": ["md"],
+        "category": "sops",
+        "priority": "medium"
+      },
+      {
+        "path": "Knowledge/checklists/",
+        "recursive": true,
+        "file_types": ["md"],
+        "category": "checklists",
+        "priority": "medium"
+      },
+      {
+        "path": "Knowledge/compliance/",
+        "recursive": true,
+        "file_types": ["md"],
+        "category": "compliance",
+        "priority": "low"
+      }
+    ],
+    "exclusions": ["README.md", "*.gitkeep"],
+    "metadata_fields": ["source_path", "category", "chunk_index", "total_chunks", "indexed_at"]
+  }
+}

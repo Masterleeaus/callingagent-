@@ -1,0 +1,52 @@
+{
+  "guardrails_version": "1.0",
+  "module": "TitanChatbot",
+  "description": "AI content guardrails for TitanChatbot booking agent",
+  "input_guardrails": [
+    {
+      "id": "no_pii_in_logs",
+      "description": "Strip PII from logged messages",
+      "action": "redact",
+      "patterns": ["\\b[0-9]{10,12}\\b", "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b"]
+    },
+    {
+      "id": "prompt_injection",
+      "description": "Block prompt injection attempts",
+      "action": "block",
+      "patterns": ["ignore previous instructions", "forget your instructions", "you are now", "act as if"]
+    },
+    {
+      "id": "off_topic_filter",
+      "description": "Flag messages unrelated to cleaning services",
+      "action": "flag_for_escalation",
+      "categories": ["medical_advice", "legal_advice", "financial_advice", "political", "hate_speech"]
+    }
+  ],
+  "output_guardrails": [
+    {
+      "id": "no_price_guarantees",
+      "description": "Prevent hard price guarantees without a tool-backed quote",
+      "action": "rewrite",
+      "trigger": "any_price_commitment_without_tool_call"
+    },
+    {
+      "id": "no_legal_claims",
+      "description": "Block legal/insurance advice claims",
+      "action": "block_and_escalate",
+      "prohibited_topics": ["insurance_coverage_claims", "legal_rights_advice", "tenancy_law_advice"]
+    },
+    {
+      "id": "competitor_mentions",
+      "description": "Avoid direct competitor comparisons",
+      "action": "rewrite",
+      "trigger": "named_competitor_comparison"
+    }
+  ],
+  "escalation_triggers": [
+    {"trigger": "human_requested", "priority": "normal"},
+    {"trigger": "complaint_keyword", "priority": "high"},
+    {"trigger": "legal_query", "priority": "high"},
+    {"trigger": "payment_dispute", "priority": "critical"},
+    {"trigger": "safety_concern", "priority": "critical"}
+  ]
+}

@@ -28,6 +28,18 @@ class AuditTitanChatbotCommand extends Command
             'UsageTracker'       => fn() => class_exists(\Modules\TitanChatbot\Billing\Usage\UsageTracker::class),
             'WebchatChannel'     => fn() => class_exists(\Modules\TitanChatbot\Services\WebchatChannel::class),
             'TrainingPipeline'   => fn() => class_exists(\Modules\TitanChatbot\Services\TrainingPipeline::class),
+            'Knowledge Pack'     => fn() => is_dir(__DIR__ . '/../../Knowledge'),
+            'Knowledge README'   => fn() => file_exists(__DIR__ . '/../../Knowledge/README.md'),
+            'BookingAgent Manifest' => fn() => $this->checkValidJson(__DIR__ . '/../../Agents/BookingAgent/agent.manifest.json'),
+            'BookingAgent Prompts'  => fn() => $this->checkBookingAgentPrompts(),
+            'Tool Schemas Valid'    => fn() => $this->checkToolSchemas(),
+            'Retrieval Policy'      => fn() => $this->checkValidJson(__DIR__ . '/../../AI/Retrieval/retrieval.policy.json'),
+            'Indexing Manifest'     => fn() => $this->checkValidJson(__DIR__ . '/../../AI/Indexing/indexing.manifest.json'),
+            'Guardrails Config'     => fn() => $this->checkValidJson(__DIR__ . '/../../AI/Guardrails/guardrails.json'),
+            'Telemetry Manifest'    => fn() => $this->checkValidJson(__DIR__ . '/../../AI/Telemetry/telemetry.manifest.json'),
+            'Action Map'            => fn() => $this->checkValidJson(__DIR__ . '/../../AI/Actions/action-map.json'),
+            'Dataset Manifest'      => fn() => $this->checkValidJson(__DIR__ . '/../../Agents/BookingAgent/training/dataset-manifest.json'),
+            'Eval Suite'            => fn() => $this->checkValidJson(__DIR__ . '/../../Agents/BookingAgent/evaluations/eval-suite.json'),
         ];
 
         $pass = 0;
@@ -58,5 +70,47 @@ class AuditTitanChatbotCommand extends Command
     private function checkAiConfig(): bool
     {
         return !empty(config('titan-chatbot.ai.provider', config('titan-chatbot.ai.provider', 'openai')));
+    }
+
+    private function checkValidJson(string $path): bool
+    {
+        if (!file_exists($path)) {
+            return false;
+        }
+        $content = file_get_contents($path);
+        json_decode($content, true);
+        return json_last_error() === JSON_ERROR_NONE;
+    }
+
+    private function checkBookingAgentPrompts(): bool
+    {
+        $base    = __DIR__ . '/../../Agents/BookingAgent/prompts/';
+        $prompts = ['system.md', 'answering.md', 'tool-use.md'];
+        foreach ($prompts as $prompt) {
+            if (!file_exists($base . $prompt) || filesize($base . $prompt) < 10) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private function checkToolSchemas(): bool
+    {
+        $toolDir = __DIR__ . '/../../Agents/BookingAgent/tools/';
+        if (!is_dir($toolDir)) {
+            return false;
+        }
+        $files = glob($toolDir . '*.tool.json');
+        if (empty($files)) {
+            return false;
+        }
+        foreach ($files as $file) {
+            $content = file_get_contents($file);
+            json_decode($content, true);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                return false;
+            }
+        }
+        return true;
     }
 }

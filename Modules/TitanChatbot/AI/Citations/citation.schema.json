@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "module": "TitanChatbot",
+  "description": "Schema for knowledge citations produced by the RAG pipeline",
+  "citation": {
+    "type": "object",
+    "required": ["source_category", "confidence"],
+    "properties": {
+      "source_category": {
+        "type": "string",
+        "enum": ["guides", "faqs", "pricing", "policies", "sops", "checklists", "compliance", "examples"],
+        "description": "Knowledge category the citation came from"
+      },
+      "source_path": {
+        "type": "string",
+        "description": "Relative path to source file within Knowledge/"
+      },
+      "content_excerpt": {
+        "type": "string",
+        "maxLength": 200,
+        "description": "Short excerpt from the cited content"
+      },
+      "confidence": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "Retrieval confidence score"
+      },
+      "chunk_index": {
+        "type": "integer",
+        "description": "Index of the chunk within the source document"
+      },
+      "display_reference": {
+        "type": "string",
+        "description": "Human-readable reference to show in UI (e.g. 'Cleaning FAQ #12')"
+      }
+    }
+  },
+  "presentation_rules": {
+    "show_to_customer": false,
+    "show_in_ui": true,
+    "show_in_api": true,
+    "min_confidence_to_cite": 0.65
+  }
+}

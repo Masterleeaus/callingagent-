@@ -1,0 +1,69 @@
+{
+  "action_map_version": "1.0",
+  "module": "TitanChatbot",
+  "description": "Maps AI agent intents to module actions and tool calls",
+  "intents": [
+    {
+      "intent": "get_quote",
+      "confidence_threshold": 0.75,
+      "primary_action": "call_tool",
+      "tool": "calculate_quote",
+      "follow_up": "offer_booking_slot"
+    },
+    {
+      "intent": "book_service",
+      "confidence_threshold": 0.80,
+      "primary_action": "call_tool",
+      "tool": "lookup_available_slots",
+      "follow_up": "create_booking_request"
+    },
+    {
+      "intent": "check_availability",
+      "confidence_threshold": 0.75,
+      "primary_action": "call_tool",
+      "tool": "lookup_available_slots"
+    },
+    {
+      "intent": "check_service_area",
+      "confidence_threshold": 0.70,
+      "primary_action": "call_tool",
+      "tool": "check_service_area"
+    },
+    {
+      "intent": "lookup_customer",
+      "confidence_threshold": 0.80,
+      "primary_action": "call_tool",
+      "tool": "lookup_customer"
+    },
+    {
+      "intent": "answer_question",
+      "confidence_threshold": 0.65,
+      "primary_action": "call_tool",
+      "tool": "search_knowledge"
+    },
+    {
+      "intent": "escalate",
+      "confidence_threshold": 0.60,
+      "primary_action": "call_tool",
+      "tool": "create_escalation"
+    },
+    {
+      "intent": "cancel_booking",
+      "confidence_threshold": 0.80,
+      "primary_action": "escalate_or_lookup",
+      "tool": "create_escalation",
+      "note": "Cancellations require human confirmation"
+    },
+    {
+      "intent": "complaint",
+      "confidence_threshold": 0.60,
+      "primary_action": "call_tool",
+      "tool": "create_escalation",
+      "urgency": "high"
+    }
+  ],
+  "fallback_action": {
+    "action": "search_knowledge",
+    "note": "If intent is unclear, search knowledge first"
+  }
+}
