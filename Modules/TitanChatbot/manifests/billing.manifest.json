@@ -18,6 +18,11 @@
       "class": "Modules\\TitanChatbot\\Billing\\Meters\\EmbeddingMeter",
       "unit": "embedding",
       "description": "Meters embedding generation requests for RAG training"
+    },
+    {
+      "class": "Modules\\TitanChatbot\\Billing\\Usage\\UsageTracker",
+      "unit": "tokens",
+      "description": "Tracks prompt/completion/total token usage per tenant, chatbot, and date"
     }
   ]
 }
