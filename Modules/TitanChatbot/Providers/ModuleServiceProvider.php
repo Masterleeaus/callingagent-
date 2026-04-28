@@ -23,6 +23,7 @@ use Modules\TitanChatbot\Services\TrainingPipeline;
 use Modules\TitanChatbot\Services\VoiceChannel;
 use Modules\TitanChatbot\Services\WebchatChannel;
 use Modules\TitanChatbot\Services\WhatsappChannel;
+use Modules\TitanChatbot\Billing\Usage\UsageTracker;
 
 class ModuleServiceProvider extends ServiceProvider
 {
@@ -62,6 +63,7 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->singleton(ConversationMeter::class);
         $this->app->singleton(VoiceSecondsMeter::class);
         $this->app->singleton(EmbeddingMeter::class);
+        $this->app->singleton(UsageTracker::class);
 
         // Channel driver bindings
         $this->app->bind('titan.channel.webchat',   WebchatChannel::class);
@@ -90,6 +92,15 @@ class ModuleServiceProvider extends ServiceProvider
 
         if (is_dir(__DIR__ . '/../Resources/lang')) {
             $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'titan-chatbot');
+        }
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                \Modules\TitanChatbot\Console\Commands\AuditTitanChatbotCommand::class,
+                \Modules\TitanChatbot\Console\Commands\MakeAgentCommand::class,
+                \Modules\TitanChatbot\Console\Commands\MakeToolCommand::class,
+                \Modules\TitanChatbot\Console\Commands\ClearMemoryCommand::class,
+            ]);
         }
     }
 
