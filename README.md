@@ -1,4 +1,4 @@
-# VoiceOps Agent
+# Titan Voice Operations
 
 **A modular Laravel voice-agent system for governed inbound/outbound calling, realtime conversation, messaging and operational handoff workflows.**
 
