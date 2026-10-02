@@ -4,6 +4,13 @@
 
 **A modular Laravel voice-agent system for governed inbound/outbound calling, realtime conversation, messaging and operational handoff workflows.**
 
+## Product architecture and engineering highlights
+
+A modular voice-operations system for inbound and outbound calls, messaging, appointment workflows, and structured handoff to business systems.
+
+- **Architecture:** Laravel provider contracts isolate telephony, speech, realtime voice, calendar, and SIP services; call/session state feeds a receptionist agent, tool registry, outcome pipeline, and Filament operations surface.
+- **Distinctive engineering:** Notable features include provider fallback, caller memory, sliding-window/summarized context, schema-shaped call outcomes, missed-call recovery, and idempotent usage metering.
+
 ## Overview
 
 VoiceOps Agent is a communications module built around programmable telephony and conversational AI. It combines provider abstractions, call/session state, realtime media handling, structured outcomes, caller memory, booking workflows, billing metering and administration surfaces.
